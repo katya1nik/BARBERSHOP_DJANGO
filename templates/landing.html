@@ -1,58 +1,60 @@
-{% extends 'base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Барбершоп - Главная</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Добро пожаловать в Барбершоп!</h1>
+        <nav>
+            <a href="{% url 'landing' %}">Главная</a>
+            <a href="{% url 'orders_list' %}">Заявки</a>
+        </nav>
+    </header>
 
-{% block title %}Главная - Барбершоп{% endblock %}
+    <main>
+        <section class="hero">
+            <h2>Лучший барбершоп в городе</h2>
+            <p>Профессиональные мастера и качественные услуги</p>
+        </section>
 
-{% block content %}
-<div class="hero-section">
-    <h2>Добро пожаловать в барбершоп "Золотые Ножницы"!</h2>
-    <p>Профессиональные услуги для настоящих мужчин</p>
-</div>
+        <section class="masters">
+            <h2>Наши мастера</h2>
+            <div class="masters-grid">
+                {% for master in masters %}
+                <div class="master-card">
+                    <h3>{{ master.name }}</h3>
+                    <p>ID мастера: {{ master.id }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
 
-<div class="services-section">
-    <h3>Наши услуги</h3>
-    <div class="services-grid">
-        {% for service in services %}
-        <div class="service-card">
-            <h4>{{ service }}</h4>
-        </div>
-        {% endfor %}
-    </div>
-</div>
+        <section class="services">
+            <h2>Наши услуги</h2>
+            <ul class="services-list">
+                {% for service in services %}
+                <li class="service-item">{{ service }}</li>
+                {% endfor %}
+            </ul>
+        </section>
 
-<div class="masters-section">
-    <h3>Наши мастера</h3>
-    <div class="masters-grid">
-        {% for master in masters %}
-        <div class="master-card">
-            <h4>{{ master.name }}</h4>
-            <p>ID: {{ master.id }}</p>
-        </div>
-        {% endfor %}
-    </div>
-</div>
+        <section class="booking">
+            <h2>Записаться на прием</h2>
+            <p>Свяжитесь с нами для записи на удобное время</p>
+            <a href="{% url 'thanks' %}" class="btn">Записаться</a>
+        </section>
+    </main>
 
-<div class="booking-section">
-    <h3>Записаться на стрижку</h3>
-    <form class="booking-form" method="post">
-        {% csrf_token %}
-        <input type="text" name="name" placeholder="Ваше имя" required>
-        <input type="tel" name="phone" placeholder="Телефон" required>
-        <select name="master" required>
-            <option value="">Выберите мастера</option>
-            {% for master in masters %}
-            <option value="{{ master.id }}">{{ master.name }}</option>
-            {% endfor %}
-        </select>
-        <select name="service" required>
-            <option value="">Выберите услугу</option>
-            {% for service in services %}
-            <option value="{{ service }}">{{ service }}</option>
-            {% endfor %}
-        </select>
-        <input type="date" name="date"required>
-        <input type="time" name="time"required>
-        <button type="submit" class="btn btn-primary">Записаться</button>
-    </form>
-</div>
-{% endblock %}
+    <footer>
+        <p>&copy; 2025 Барбершоп. Все права защищены.</p>
+    </footer>
+
+    <script src="{% static 'main.js' %}"></script>
+</body>
+</html>
 

@@ -1,70 +1,68 @@
-{% extends 'base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Заявка #{{ order.id }} - Барбершоп</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Заявка #{{ order.id }}</h1>
+        <nav>
+            <a href="{% url 'landing' %}">Главная</a>
+            <a href="{% url 'orders_list' %}">Заявки</a>
+        </nav>
+    </header>
 
-{% block title %}Заявка #{{ order.id }} - Барбершоп{% endblock %}
-
-{% block content %}
-<div class="order-detail-section">
-    {% if order %}
-    <div class="order-detail">
-        <div class="order-header">
-            <h2>Заявка #{{ order.id }}</h2>
-            <span class="status status-{{ order.status }}">{{ order.status|capfirst }}</span>
-        </div>
-        
-        <div class="order-info-grid">
-            <div class="info-card">
-                <h3>Информация о клиенте</h3>
-                <p><strong>Имя:</strong> {{ order.client_name }}</p>
-                <p><strong>Дата записи:</strong> {{ order.date }}</p>
-                <p><strong>Время записи:</strong> {{ order.time }}</p>
-            </div>
+    <main>
+        <div class="order-detail">
+            <h2>Детальная информация о заявке</h2>
             
-            <div class="info-card">
-                <h3>Мастер</h3>
+            <div class="info-section">
+                <h3>Клиент:</h3>
+                <p>{{ order.client_name }}</p>
+            </div>
+
+            <div class="info-section">
+                <h3>Дата записи:</h3>
+                <p>{{ order.date }}</p>
+            </div>
+
+            <div class="info-section">
+                <h3>Статус:</h3>
+                <p>{{ order.status }}</p>
+            </div>
+
+            <div class="info-section">
+                <h3>Мастер:</h3>
                 {% if master %}
-                <p><strong>Имя:</strong> {{ master.name }}</p>
-                <p><strong>ID:</strong> {{ master.id }}</p>
+                <p>{{ master.name }}</p>
                 {% else %}
                 <p>Мастер не найден</p>
                 {% endif %}
             </div>
-            
-            <div class="info-card">
-                <h3>Услуги</h3>
-                <ul class="services-list">
+
+            <div class="info-section">
+                <h3>Услуги:</h3>
+                <ul>
                     {% for service in order.services %}
                     <li>{{ service }}</li>
                     {% endfor %}
                 </ul>
             </div>
-            
-            <div class="info-card">
-                <h3>Статус заявки</h3>
-                <p class="status-description">
-                    {% if order.status == 'новая' %}
-                        Заявка только что создана и ожидает обработки.
-                    {% elif order.status == 'подтвержденная' %}
-                        Заявка подтверждена, клиент записан на указанное время.
-                    {% elif order.status == 'выполненная' %}
-                        Услуги оказаны, заявка выполнена.
-                    {% else %}
-                        {{ order.status }}
-                    {% endif %}
-                </p>
+
+            <div class="actions">
+                <a href="{% url 'orders_list' %}" class="btn">Назад к списку</a>
             </div>
         </div>
-        
-        <div class="order-actions">
-            <a href="{% url 'orders_list' %}" class="btn">← Назад к списку</a>
-            <a href="{% url 'landing' %}" class="btn btn-primary">На главную</a>
-        </div>
-    </div>
-    {% else %}
-    <div class="error-message">
-        <h2>Заявка не найдена</h2>
-        <p>Заявка с указанным ID не существует.</p>
-        <a href="{% url 'orders_list' %}" class="btn">← К списку заявок</a>
-    </div>
-    {% endif %}
-</div>
-{% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Барбершоп. Все права защищены.</p>
+    </footer>
+
+    <script src="{% static 'main.js' %}"></script>
+</body>
+</html>
