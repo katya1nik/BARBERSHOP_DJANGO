@@ -1,9 +1,9 @@
 [project]
-name = "barbershop-project"
+name = "barbershop-django"
 version = "0.1.0"
 description = ""
 authors = [
-    {name = "katya1nik",email = "katya77nik@gmail.com"}
+    {name = "katya1nik",email = "Ш_EMAIL@example.com"}
 ]
 readme = "README.md"
 requires-python = ">=3.13"
