@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}Главная - Барбершоп{% endblock %}
+
+{% block content %}
+<div class="hero-section">
+    <h2>Добро пожаловать в барбершоп "Золотые Ножницы"!</h2>
+    <p>Профессиональные услуги для настоящих мужчин</p>
+</div>
+
+<div class="services-section">
+    <h3>Наши услуги</h3>
+    <div class="services-grid">
+        {% for service in services %}
+        <div class="service-card">
+            <h4>{{ service }}</h4>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="masters-section">
+    <h3>Наши мастера</h3>
+    <div class="masters-grid">
+        {% for master in masters %}
+        <div class="master-card">
+            <h4>{{ master.name }}</h4>
+            <p>ID: {{ master.id }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="booking-section">
+    <h3>Записаться на стрижку</h3>
+    <form class="booking-form" method="post">
+        {% csrf_token %}
+        <input type="text" name="name" placeholder="Ваше имя" required>
+        <input type="tel" name="phone" placeholder="Телефон" required>
+        <select name="master" required>
+            <option value="">Выберите мастера</option>
+            {% for master in masters %}
+            <option value="{{ master.id }}">{{ master.name }}</option>
+            {% endfor %}
+        </select>
+        <select name="service" required>
+            <option value="">Выберите услугу</option>
+            {% for service in services %}
+            <option value="{{ service }}">{{ service }}</option>
+            {% endfor %}
+        </select>
+        <input type="date" name="date"required>
+        <input type="time" name="time"required>
+        <button type="submit" class="btn btn-primary">Записаться</button>
+    </form>
+</div>
+{% endblock %}
+

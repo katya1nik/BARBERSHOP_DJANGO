@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Барбершоп{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1> Барбершоп "Золотые Ножницы" </h1>
+            <nav>
+                <a href="{% url 'landing' %}" class="btn">Главная</a>
+                <a href="{% url 'orders_list' %}" class="btn">Заявки</a>
+            </nav>
+        </div>
+    </header>
+    
+    <main class="container">
+        {% block content %}
+        {% endblock %}
+    </main>
+    
+    <!-- <script src="{% static 'main.js' %}"></script> -->
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
