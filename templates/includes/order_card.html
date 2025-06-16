@@ -1,0 +1,47 @@
+﻿<div class="card mb-3">
+    <div class="card-body">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h5 class="card-title">{{ order.client_name }}</h5>
+                <p class="card-text">
+                    <small class="text-muted">
+                        <i class="bi bi-calendar"></i> {{ order.date }}
+                    </small>
+                </p>
+                <p class="card-text">
+                    <strong>слуги:</strong> 
+                    {% for service in order.services %}
+                        {{ service }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </p>
+                <p class="card-text">
+                    <strong>астер:</strong> 
+                    {% for master in masters %}
+                        {% if master.id == order.master_id %}
+                            {{ master.name }}
+                        {% endif %}
+                    {% endfor %}
+                </p>
+            </div>
+            <div class="col-md-4 text-end">
+                {% if order.status == 'новая' %}
+                    <span class="badge bg-warning text-dark">{{ order.status }}</span>
+                {% elif order.status == 'подтверждённая' %}
+                    <span class="badge bg-primary">{{ order.status }}</span>
+                {% elif order.status == 'отменённая' %}
+                    <span class="badge bg-danger">{{ order.status }}</span>
+                {% elif order.status == 'выполненная' %}
+                    <span class="badge bg-success">{{ order.status }}</span>
+                {% else %}
+                    <span class="badge bg-secondary">{{ order.status|default:"не указан" }}</span>
+                {% endif %}
+                
+                <div class="mt-2">
+                    <a href="{% url 'order_detail' order.id %}" class="btn btn-outline-primary btn-sm">
+                        <i class="bi bi-eye"></i> одробнее
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

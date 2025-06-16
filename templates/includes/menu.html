@@ -1,0 +1,38 @@
+﻿<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'landing' %}">
+            <i class="bi bi-scissors"></i> арбершоп "Стальная орода"
+        </a>
+        
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'landing' %}#home">лавная</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'landing' %}#masters">астера</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'landing' %}#services">слуги</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'landing' %}#booking">апись</a>
+                </li>
+            </ul>
+            
+            {% if user.is_staff %}
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'orders_list' %}">
+                        <i class="bi bi-list-ul"></i> аявки
+                    </a>
+                </li>
+            </ul>
+            {% endif %}
+        </div>
+    </div>
+</nav>
