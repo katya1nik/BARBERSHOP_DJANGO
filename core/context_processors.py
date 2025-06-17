@@ -1,11 +1,23 @@
-def menu_context(request):
-    """Контекстный процессор для передачи данных меню во все шаблоны"""
-    return {
-        'menu_items': [
-            {'name': 'Главная', 'url': 'landing', 'anchor': '#home'},
-            {'name': 'О нас', 'url': 'landing', 'anchor': '#about'},
-            {'name': 'Услуги', 'url': 'landing', 'anchor': '#services'},
-            {'name': 'Мастера', 'url': 'landing', 'anchor': '#masters'},
-            {'name': 'Запись', 'url': 'landing', 'anchor': '#booking'},
+п»їdef menu_context(request):
+    """
+    РѕРЅС‚РµРєСЃС‚РЅС‹Р№ РїСЂРѕС†РµСЃСЃРѕСЂ РґР»СЏ РїРµСЂРµРґР°С‡Рё РґР°РЅРЅС‹С… РјРµРЅСЋ РІРѕ РІСЃРµ С€Р°Р±Р»РѕРЅС‹
+    """
+    menu_items = [
+        {'name': 'Р»Р°РІРЅР°СЏ', 'url': '#home', 'anchor': True},
+        {'name': ' РЅР°СЃ', 'url': '#about', 'anchor': True},
+        {'name': 'Р°СЃС‚РµСЂР°', 'url': '#masters', 'anchor': True},
+        {'name': 'СЃР»СѓРіРё', 'url': '#services', 'anchor': True},
+        {'name': 'Р°РїРёСЃСЊ', 'url': '#booking', 'anchor': True},
+    ]
+    
+    # РѕР±Р°РІР»СЏРµРј РїСѓРЅРєС‚С‹ РґР»СЏ РїРµСЂСЃРѕРЅР°Р»Р°
+    staff_menu_items = []
+    if request.user.is_authenticated and request.user.is_staff:
+        staff_menu_items = [
+            {'name': 'Р°СЏРІРєРё', 'url': 'orders_list', 'anchor': False},
         ]
+    
+    return {
+        'menu_items': menu_items,
+        'staff_menu_items': staff_menu_items,
     }
