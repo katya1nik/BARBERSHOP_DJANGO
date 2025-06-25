@@ -9,13 +9,13 @@
                     </small>
                 </p>
                 <p class="card-text">
-                    <strong>слуги:</strong> 
+                    <strong>Услуги:</strong> 
                     {% for service in order.services %}
                         {{ service }}{% if not forloop.last %}, {% endif %}
                     {% endfor %}
                 </p>
                 <p class="card-text">
-                    <strong>астер:</strong> 
+                    <strong>Мастер:</strong> 
                     {% for master in masters %}
                         {% if master.id == order.master_id %}
                             {{ master.name }}
@@ -38,7 +38,7 @@
                 
                 <div class="mt-2">
                     <a href="{% url 'order_detail' order.id %}" class="btn btn-outline-primary btn-sm">
-                        <i class="bi bi-eye"></i> одробнее
+                        <i class="bi bi-eye"></i> Подробнее
                     </a>
                 </div>
             </div>
