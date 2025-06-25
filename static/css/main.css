@@ -1,4 +1,4 @@
-﻿/* Основные стили для барбершопа */
+/* Основные стили для барбершопа */
 * {
     margin: 0;
     padding: 0;
@@ -81,23 +81,12 @@ h2 {
     padding-bottom: 10px;
 }
 
-h3 {
-    color: #2c3e50;
-    margin-bottom: 15px;
-    font-size: 1.4em;
-}
-
 .display-1 {
     font-size: 6rem;
     background: linear-gradient(45deg, #667eea, #764ba2);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-}
-
-.display-4 {
-    font-size: 3.5rem;
-    color: #2c3e50;
 }
 
 /* Кнопки */
@@ -142,19 +131,6 @@ h3 {
     text-decoration: none;
 }
 
-.btn-success {
-    background: linear-gradient(45deg, #28a745, #20c997);
-    color: white;
-    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
-}
-
-.btn-success:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(40, 167, 69, 0.4);
-    color: white;
-    text-decoration: none;
-}
-
 /* Карточки */
 .card {
     background: linear-gradient(135deg, #f8f9ff 0%, #e8ecff 100%);
@@ -179,11 +155,6 @@ h3 {
     color: #667eea;
     font-weight: 600;
     margin-bottom: 15px;
-}
-
-.card-text {
-    color: #6c757d;
-    line-height: 1.6;
 }
 
 /* Секции */
@@ -271,13 +242,6 @@ textarea:focus {
     box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
-/* Чекбоксы */
-input[type="checkbox"] {
-    width: auto;
-    margin-right: 10px;
-    transform: scale(1.2);
-}
-
 /* Статусы заявок */
 .status {
     padding: 6px 12px;
@@ -289,8 +253,7 @@ input[type="checkbox"] {
     display: inline-block;
 }
 
-.status-new,
-.status-pending {
+.status-new {
     background: linear-gradient(45deg, #ffc107, #ff9800);
     color: #000;
 }
@@ -310,41 +273,8 @@ input[type="checkbox"] {
     color: #fff;
 }
 
-/* Фон */
-.bg-dark {
-    background: linear-gradient(135deg, #2c3e50, #34495e) !important;
-}
-
-/* Страница благодарности */
-.thanks {
-    text-align: center;
-    padding: 50px;
-    background: linear-gradient(135deg, #d4edda, #c3e6cb);
-    border-radius: 20px;
-    border: 2px solid #28a745;
-    margin: 50px auto;
-    max-width: 600px;
-}
-
-.thanks h1 {
-    color: #155724;
-    font-size: 2.5em;
-    margin-bottom: 20px;
-}
-
-.thanks p {
-    font-size: 1.2em;
-    color: #155724;
-    margin-bottom: 15px;
-}
-
 /* Адаптивность */
 @media (max-width: 768px) {
-    .container {
-        margin: 10px;
-        padding: 15px;
-    }
-    
     .display-1 {
         font-size: 4rem;
     }
@@ -358,14 +288,6 @@ input[type="checkbox"] {
         margin: 5px 0;
         text-align: center;
     }
-    
-    h1 {
-        font-size: 2em;
-    }
-    
-    .service, .master, .review {
-        padding: 15px;
-    }
 }
 
 /* Анимации */
@@ -377,9 +299,3 @@ input[type="checkbox"] {
 .section, .card, .service, .master, .review {
     animation: fadeIn 0.6s ease-out;
 }
-
-/* Утилиты */
-.text-center { text-align: center; }
-.text-muted { color: #6c757d; }
-.mb-20 { margin-bottom: 20px; }
-.mt-20 { margin-top: 20px; }

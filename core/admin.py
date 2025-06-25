@@ -5,9 +5,9 @@ from .models import Master, Service, Order, Review
 @admin.register(Master)
 class MasterAdmin(admin.ModelAdmin):
     """Админка для мастеров"""
-    list_display = ('name', 'phone', 'experience', 'is_active')
+    list_display = ('name', 'phone', 'experience', 'specialization', 'is_active')
     list_filter = ('is_active', 'experience')
-    search_fields = ('name', 'phone')
+    search_fields = ('name', 'phone', 'specialization')
     filter_horizontal = ('services',)
     list_editable = ('is_active',)
 

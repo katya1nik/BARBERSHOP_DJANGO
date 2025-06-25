@@ -1,140 +1,155 @@
 {% extends 'base.html' %}
-{% load static %}
 
-{% block title %}Главная - Барбершоп "Стальная Борода"{% endblock %}
+{% block title %}Барбершоп - Главная{% endblock %}
 
 {% block content %}
-<!-- Главный баннер -->
-<section id="home" class="bg-dark text-white py-5">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6">
-                <h1 class="display-4 fw-bold">Барбершоп "Стальная Борода"</h1>
-                <p class="lead">Профессиональные услуги для настоящих героев</p>
-                <a href="#booking" class="btn btn-warning btn-lg">Записаться на стрижку</a>
-            </div>
-            <div class="col-lg-6 text-center">
-                <i class="bi bi-scissors display-1"></i>
-            </div>
-        </div>
-    </div>
-</section>
+<div class="text-center mb-5">
+    <h1 class="display-1">✂️ Барбершоп</h1>
+    <p class="lead">Профессиональные услуги для настоящих мужчин</p>
+</div>
 
-<!-- О нас -->
-<section id="about" class="py-5">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <h2 class="mb-4">О нас</h2>
-                <p class="lead">Мы предоставляем качественные услуги мужской парикмахерской с 2015 года. Наши мастера - профессионалы своего дела.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Мастера -->
-<section id="masters" class="py-5 bg-light">
-    <div class="container">
-        <h2 class="text-center mb-5">Наши мастера</h2>
-        <div class="row">
-            {% for master in masters %}
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card h-100">
-                    <div class="card-body text-center">
-                        <i class="bi bi-person-circle display-4 text-primary mb-3"></i>
-                        <h5 class="card-title">{{ master.name }}</h5>
-                        <p class="card-text">{{ master.specialization }}</p>
+<!-- Популярные услуги -->
+<div class="section">
+    <h2>🔥 Популярные услуги</h2>
+    <div class="row">
+        {% for service in popular_services %}
+            <div class="col-md-6 col-lg-4">
+                <div class="service">
+                    <h3>{{ service.name }}</h3>
+                    <p>{{ service.description }}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="price">{{ service.price }} ₽</span>
+                        <small class="text-muted">{{ service.duration }} мин</small>
                     </div>
                 </div>
             </div>
-            {% endfor %}
-        </div>
+        {% empty %}
+            <div class="col-12">
+                <p class="text-center text-muted">Популярные услуги не найдены.</p>
+            </div>
+        {% endfor %}
     </div>
-</section>
+</div>
 
-<!-- Услуги -->
-<section id="services" class="py-5">
-    <div class="container">
-        <h2 class="text-center mb-5">Наши услуги</h2>
-        <div class="row">
-            {% for service in services %}
-            <div class="col-lg-6 col-md-6 mb-4">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <h5 class="card-title">{{ service.name }}</h5>
-                            </div>
-                            <div>
-                                <span class="badge bg-primary fs-6">{{ service.price }} ₽</span>
-                            </div>
-                        </div>
+<!-- Наши мастера -->
+<div class="section">
+    <h2>👨‍💼 Наши мастера</h2>
+    <div class="row">
+        {% for master in masters %}
+            <div class="col-md-6 col-lg-4">
+                <div class="master">
+                    <h3>{{ master.name }}</h3>
+                    <p><strong>Опыт:</strong> {{ master.experience }} лет</p>
+                    <p class="text-muted">{{ master.specialization }}</p>
+                    <a href="{% url 'core:master_detail' master.id %}" class="btn btn-primary btn-sm">Подробнее</a>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-12">
+                <p class="text-center text-muted">Мастера не найдены.</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Отзывы -->
+<div class="section">
+    <h2>⭐ Последние отзывы</h2>
+    <div class="row">
+        {% for review in recent_reviews %}
+            <div class="col-md-6">
+                <div class="review">
+                    <h4>{{ review.client_name }}</h4>
+                    <p>"{{ review.text }}"</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="text-warning">
+                            {% for i in "12345"|slice:":"|slice:review.rating %}⭐{% endfor %}
+                        </span>
+                        <small class="text-muted">{{ review.date_created|date:"d.m.Y" }}</small>
                     </div>
                 </div>
             </div>
-            {% endfor %}
-        </div>
+        {% empty %}
+            <div class="col-12">
+                <p class="text-center text-muted">Отзывы не найдены.</p>
+            </div>
+        {% endfor %}
     </div>
-</section>
+</div>
 
-<!-- Форма записи -->
-<section id="booking" class="py-5 bg-dark text-white">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-8">
-                <h2 class="text-center mb-4">Записаться на стрижку</h2>
-                <form method="post" action="{% url 'thanks' %}">
+<!-- Форма быстрой записи -->
+<div class="section">
+    <h2>📅 Быстрая запись</h2>
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <form method="post" class="card">
+                <div class="card-body">
                     {% csrf_token %}
                     <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="name" class="form-label">Ваше имя</label>
-                            <input type="text" class="form-control" id="name" name="name" required>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>👤 Ваше имя:</label>
+                                <input type="text" name="name" class="form-control" required>
+                            </div>
                         </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="phone" class="form-label">Телефон</label>
-                            <input type="tel" class="form-control" id="phone" name="phone" required>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>📱 Телефон:</label>
+                                <input type="tel" name="phone" class="form-control" required>
+                            </div>
                         </div>
                     </div>
+                    
                     <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="date" class="form-label">Дата</label>
-                            <input type="date" class="form-control" id="date" name="date" required>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>👨‍💼 Выберите мастера:</label>
+                                <select name="master" class="form-control">
+                                    {% for master in masters %}
+                                        <option value="{{ master.id }}">{{ master.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
                         </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="time" class="form-label">Время</label>
-                            <input type="time" class="form-control" id="time" name="time" required>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>📅 Дата и время:</label>
+                                <input type="datetime-local" name="appointment_date" class="form-control" required>
+                            </div>
                         </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="service" class="form-label">Услуга</label>
-                        <select class="form-select" id="service" name="service" required>
-                            <option value="">Выберите услугу</option>
+                    
+                    <div class="form-group">
+                        <label>✂️ Выберите услуги:</label>
+                        <div class="row">
                             {% for service in services %}
-                            <option value="{{ service.name }}">{{ service.name }} - {{ service.price }} ₽</option>
+                                <div class="col-md-6">
+                                    <div class="form-check">
+                                        <input type="checkbox" name="services" value="{{ service.id }}" 
+                                               id="service_{{ service.id }}" class="form-check-input">
+                                        <label for="service_{{ service.id }}" class="form-check-label">
+                                            {{ service.name }} <span class="price">{{ service.price }} ₽</span>
+                                        </label>
+                                    </div>
+                                </div>
                             {% endfor %}
-                        </select>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="master" class="form-label">Мастер</label>
-                        <select class="form-select" id="master" name="master" required>
-                            <option value="">Выберите мастера</option>
-                            {% for master in masters %}
-                            <option value="{{ master.name }}">{{ master.name }}</option>
-                            {% endfor %}
-                        </select>
+                    
+                    <div class="form-group">
+                        <label>💬 Комментарий:</label>
+                        <textarea name="comment" rows="3" class="form-control" 
+                                  placeholder="Дополнительные пожелания..."></textarea>
                     </div>
-                    <div class="mb-3">
-                        <label for="comment" class="form-label">Комментарий</label>
-                        <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
-                    </div>
+                    
                     <div class="text-center">
-                        <button type="submit" class="btn btn-warning btn-lg">Отправить заявку</button>
+                        <button type="submit" class="btn btn-warning btn-lg">
+                            📅 Записаться на прием
+                        </button>
                     </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
-</section>
+</div>
 {% endblock %}
-
-

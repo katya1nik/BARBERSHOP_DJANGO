@@ -1,45 +1,64 @@
 ﻿{% extends 'base.html' %}
 
-{% block title %}Спасибо за заявку - Барбершоп "Стальная Борода"{% endblock %}
+{% block title %}Спасибо за запись - Барбершоп{% endblock %}
 
 {% block content %}
-<div class="container py-5">
-    <div class="row justify-content-center">
-        <div class="col-lg-8 text-center">
-            <div class="card">
-                <div class="card-body py-5">
-                    <i class="bi bi-check-circle-fill text-success display-1 mb-4"></i>
-                    <h1 class="card-title mb-4">Спасибо за заявку!</h1>
-                    <p class="card-text lead mb-4">
-                        Ваша заявка успешно отправлена. Наш администратор свяжется с вами в ближайшее время для подтверждения записи.
-                    </p>
-                    <div class="mb-4">
-                        <p class="text-muted">Автоматический переход на главную страницу через <span id="countdown">10</span> секунд</p>
-                    </div>
-                    <a href="{% url 'landing' %}" class="btn btn-primary btn-lg">
-                        <i class="bi bi-house"></i> Вернуться на главную
-                    </a>
+<div class="thanks text-center">
+    <div class="mb-4">
+        <div style="font-size: 4rem;">🎉</div>
+    </div>
+    
+    <h1>Спасибо за запись!</h1>
+    
+    <div class="card mt-4">
+        <div class="card-body">
+            <h3>📋 Детали вашей записи:</h3>
+            <div class="row text-start mt-3">
+                <div class="col-md-6">
+                    <p><strong>👤 Имя:</strong> {{ order.client_name }}</p>
+                    <p><strong>📱 Телефон:</strong> {{ order.client_phone }}</p>
+                    <p><strong>👨‍💼 Мастер:</strong> {{ order.master.name }}</p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>📅 Дата:</strong> {{ order.appointment_date|date:"d.m.Y" }}</p>
+                    <p><strong>⏰ Время:</strong> {{ order.appointment_date|date:"H:i" }}</p>
+                    <p><strong>💰 Стоимость:</strong> {{ order.total_price }} ₽</p>
                 </div>
             </div>
+            
+            <div class="mt-3">
+                <h5>✂️ Выбранные услуги:</h5>
+                <ul class="list-unstyled">
+                    {% for service in order.services.all %}
+                        <li class="d-flex justify-content-between">
+                            <span>{{ service.name }}</span>
+                            <span>{{ service.price }} ₽</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            
+            {% if order.comment %}
+                <div class="mt-3">
+                    <h5>💬 Ваш комментарий:</h5>
+                    <p class="text-muted">{{ order.comment }}</p>
+                </div>
+            {% endif %}
         </div>
     </div>
-</div>
-{% endblock %}
-
-{% block scripts %}
-<script>
-    // Обратный отсчет
-    let countdown = 10;
-    const countdownElement = document.getElementById('countdown');
     
-    const timer = setInterval(function() {
-        countdown--;
-        countdownElement.textContent = countdown;
-        
-        if (countdown <= 0) {
-            clearInterval(timer);
-            window.location.href = "{% url 'landing' %}";
-        }
-    }, 1000);
-</script>
+    <div class="mt-4">
+        <p class="lead">📞 Мы свяжемся с вами для подтверждения записи</p>
+        <p class="text-muted">Номер вашего заказа: <strong>#{{ order.id }}</strong></p>
+    </div>
+    
+    <div class="mt-4">
+        <a href="{% url 'core:landing' %}" class="btn btn-primary btn-lg me-3">
+            🏠 На главную
+        </a>
+        <a href="{% url 'core:booking' %}" class="btn btn-warning btn-lg">
+            📅 Записаться еще раз
+        </a>
+    </div>
+</div>
 {% endblock %}

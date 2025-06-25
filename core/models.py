@@ -12,6 +12,12 @@ class Master(models.Model):
         verbose_name="Стаж работы", 
         help_text="Опыт работы в годах"
     )
+    specialization = models.CharField(
+        max_length=200, 
+        blank=True, 
+        verbose_name="Специализация",
+        help_text="Основная специализация мастера"
+    )  
     services = models.ManyToManyField(
         'Service', 
         related_name="masters", 
