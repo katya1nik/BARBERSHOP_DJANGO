@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}Мастера - Барбершоп{% endblock %}
+
+{% block content %}
+<div class="text-center mb-5">
+    <h1>👨‍💼 Наши мастера</h1>
+    <p class="lead">Профессионалы своего дела с многолетним опытом</p>
+</div>
+
+<div class="row">
+    {% for master in masters %}
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h3 class="card-title">{{ master.name }}</h3>
+                    <p class="card-text">{{ master.bio|truncatewords:20 }}</p>
+                    <div class="mb-3">
+                        <small class="text-muted">
+                            <strong>📅 Опыт:</strong> {{ master.experience }} лет<br>
+                            <strong>🎯 Специализация:</strong> {{ master.specialization }}
+                        </small>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent">
+                    <div class="d-flex gap-2">
+                        <a href="{% url 'core:master_detail' master.id %}" class="btn btn-primary flex-fill">
+                            👁️ Подробнее
+                        </a>
+                        <a href="{% url 'core:booking' %}" class="btn btn-warning flex-fill">
+                            📅 Записаться
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <div class="col-12">
+            <div class="text-center">
+                <h3>Мастера не найдены</h3>
+                <p class="text-muted">В данный момент список мастеров пуст</p>
+                <a href="{% url 'core:landing' %}" class="btn btn-primary">← На главную</a>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

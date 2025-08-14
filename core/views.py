@@ -1,17 +1,17 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import Http404
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib import messages
 from django.utils import timezone
 from datetime import datetime
-from core.models import Master, Service, Order
+from core.models import Master, Service, Order, Review
 
 def is_staff_user(user):
     """Проверка, является ли пользователь сотрудником"""
     return user.is_staff
 
 def landing(request):
-    """Главная страница (лендинг)"""
+    """Главная страница с формой записи"""
     if request.method == 'POST':
         # Получаем данные из формы
         client_name = request.POST.get('client_name')
@@ -37,9 +37,9 @@ def landing(request):
                 order = Order.objects.create(
                     client_name=client_name,
                     phone=phone,
-                    master=master,  # Используем ForeignKey
-                    appointment_date=appointment_datetime,  # Объединенная дата и время
-                    status='not_approved',  # Используем правильный статус
+                    master=master,
+                    appointment_date=appointment_datetime,
+                    status='not_approved',
                     comment=comment,
                     date_created=timezone.now()
                 )
@@ -55,15 +55,19 @@ def landing(request):
             print(f"DEBUG: Не все поля заполнены")
             messages.error(request, 'Пожалуйста, заполните все обязательные поля')
     
+    # Получаем данные для формы
+    active_masters = Master.objects.filter(is_active=True)
+    all_services = Service.objects.all()
+    popular_services = Service.objects.filter(is_popular=True)[:3] if hasattr(Service, 'is_popular') else []
+    recent_reviews = Review.objects.filter(is_published=True)[:3] if hasattr(Review, 'is_published') else []
+    
     context = {
-        'masters': Master.objects.all(),
-        'services': Service.objects.all(),
+        'masters': active_masters,
+        'services': all_services,
+        'popular_services': popular_services,
+        'recent_reviews': recent_reviews,
     }
     return render(request, 'landing.html', context)
-
-def thanks(request):
-    """Страница благодарности за заявку"""
-    return render(request, 'thanks.html')
 
 def booking(request):
     """Страница записи"""
@@ -158,21 +162,44 @@ def order_detail(request, order_id):
 
 def services(request):
     """Страница услуг"""
+    all_services = Service.objects.all()
+    popular_services = Service.objects.filter(is_popular=True) if hasattr(Service, 'is_popular') else []
+    
     context = {
-        'all_services': Service.objects.all(),
+        'all_services': all_services,
+        'popular_services': popular_services,
     }
     return render(request, 'core/services.html', context)
 
 def masters(request):
     """Страница мастеров"""
+    active_masters = Master.objects.filter(is_active=True).prefetch_related('services') if hasattr(Master, 'is_active') else Master.objects.all()
+    
     context = {
-        'masters': Master.objects.all(),
+        'masters': active_masters,
     }
     return render(request, 'core/masters.html', context)
 
+def master_detail(request, master_id):
+    """Детальная страница мастера"""
+    master = get_object_or_404(Master, id=master_id, is_active=True) if hasattr(Master, 'is_active') else get_object_or_404(Master, id=master_id)
+    master_reviews = Review.objects.filter(master=master, is_published=True) if hasattr(Review, 'is_published') else []
+    
+    context = {
+        'master': master,
+        'reviews': master_reviews,
+    }
+    return render(request, 'core/master_detail.html', context)
+
 def reviews(request):
     """Страница отзывов"""
+    published_reviews = Review.objects.filter(is_published=True).select_related('master') if hasattr(Review, 'is_published') else []
+    
     context = {
-        'reviews': [],  # Пока пустой список
+        'reviews': published_reviews,
     }
     return render(request, 'core/reviews.html', context)
+
+def thanks(request):
+    """Страница благодарности за заявку"""
+    return render(request, 'core/thanks.html')

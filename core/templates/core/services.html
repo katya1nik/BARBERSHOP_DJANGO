@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Услуги - Барбершоп{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Наши услуги</h1>
+    
+    {% if popular_services %}
+    <div class="section">
+        <h2>⭐ Популярные услуги</h2>
+        <div class="row">
+            {% for service in popular_services %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    {% if service.image %}
+                        <img src="{{ service.image.url }}" class="card-img-top" alt="{{ service.name }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ service.name }} ⭐</h5>
+                        <p class="card-text">{{ service.description }}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="price">{{ service.price }} ₽</span>
+                            <small class="text-muted">{{ service.duration }} мин</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    
+    {% if all_services %}
+    <div class="section">
+        <h2>Все услуги</h2>
+        <div class="row">
+            {% for service in all_services %}
+            <div class="col-md-6 mb-3">
+                <div class="service">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <h3>
+                                {{ service.name }}
+                                {% if service.is_popular %}⭐{% endif %}
+                            </h3>
+                            <p>{{ service.description }}</p>
+                            <small class="text-muted">Длительность: {{ service.duration }} минут</small>
+                        </div>
+                        <div class="text-end">
+                            <div class="price">{{ service.price }} ₽</div>
+                            <a href="{% url 'core:booking' %}" class="btn btn-primary btn-sm mt-2">Записаться</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% else %}
+    <div class="section">
+        <div class="alert alert-info text-center">
+            <h3>Услуги не найдены</h3>
+            <p>В данный момент список услуг пуст.</p>
+            <p><strong>Отладочная информация:</strong></p>
+            <p>Всего услуг в базе: {{ all_services|length }}</p>
+            <p>Популярных услуг: {{ popular_services|length }}</p>
+        </div>
+    </div>
+    {% endif %}
+    
+    <div class="text-center mt-4">
+        <a href="{% url 'core:booking' %}" class="btn btn-warning btn-lg">Записаться на прием</a>
+        <a href="{% url 'core:landing' %}" class="btn btn-primary btn-lg">На главную</a>
+    </div>
+</div>
+{% endblock %}
