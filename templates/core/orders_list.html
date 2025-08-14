@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}        
+
+{% block title %}Список заявок - Барбершоп{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="mb-4">Список заявок</h1>
+
+            {% if orders %}
+                <div class="orders-list">
+                    {% for order in orders %}
+                        <div class="order-card">
+                            <div class="order-header">
+                                <h3>Заявка #{{ order.id }}</h3>
+                                <span class="status status-{{ order.status }}">
+                                    {% if order.status == 'not_approved' %}
+                                        Не одобрен
+                                    {% elif order.status == 'approved' %}
+                                        Одобрен
+                                    {% elif order.status == 'completed' %}
+                                        Выполнен
+                                    {% elif order.status == 'cancelled' %}
+                                        Отменен
+                                    {% else %}
+                                        {{ order.status }}
+                                    {% endif %}
+                                </span>
+                            </div>
+                            <div class="order-info">
+                                <p><strong>Клиент:</strong> {{ order.client_name }}</p>
+                                <p><strong>Телефон:</strong> {{ order.phone }}</p>
+                                <p><strong>Дата:</strong> {{ order.date }}</p>
+                                <p><strong>Время:</strong> {{ order.time }}</p>
+                                <p><strong>Услуга:</strong> {{ order.service }}</p>
+                                {% if order.comment %}
+                                    <p><strong>Комментарий:</strong> {{ order.comment }}</p>
+                                {% endif %}
+                                <p><strong>Статус:</strong> {{ order.status }}</p>
+                                <p><strong>Создано:</strong> {{ order.date_created|date:"d.m.Y H:i" }}</p>
+                            </div>
+                            <div class="order-actions">
+                                <a href="{% url 'core:order_detail' order.id %}" class="btn btn-primary">Подробнее</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="no-orders">
+                    <p>Заявки не найдены.</p>
+                </div>
+            {% endif %}
+
+            <div class="mt-4">
+                <a href="{% url 'core:landing' %}" class="btn btn-secondary">Вернуться на главную</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

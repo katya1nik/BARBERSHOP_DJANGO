@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+
+{% block title %}Запись на стрижку - Барбершоп "Стальная Борода"{% endblock %}
+
+{% block styles %}
+<style>
+    .services-checkboxes {
+        max-height: 200px;
+        overflow-y: auto;
+        border: 1px solid #dee2e6;
+        border-radius: 0.375rem;
+        padding: 15px;
+        background-color: #f8f9fa;
+    }
+    
+    .services-checkboxes .form-check {
+        margin-bottom: 10px;
+        padding-left: 1.5em;
+    }
+    
+    .services-checkboxes .form-check:last-child {
+        margin-bottom: 0;
+    }
+    
+    .services-checkboxes .form-check-input:checked {
+        background-color: #0d6efd;
+        border-color: #0d6efd;
+    }
+    
+    .services-checkboxes .form-check-label {
+        cursor: pointer;
+        font-size: 0.9rem;
+    }
+    
+    .services-checkboxes .form-check-label strong {
+        color: #212529;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header">
+                    <h1 class="card-title mb-0">Запись на стрижку</h1>
+                </div>
+                <div class="card-body">
+                    <form method="post" class="booking-form">
+                        {% csrf_token %}
+                        
+                        {% if messages %}
+                        <div class="messages mb-4">
+                            {% for message in messages %}
+                            <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="client_name" class="form-label">Ваше имя *</label>
+                                <input type="text" class="form-control" id="client_name" name="client_name" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="phone" class="form-label">Телефон *</label>
+                                <input type="tel" class="form-control" id="phone" name="phone" required>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="master" class="form-label">Выберите мастера *</label>
+                                <select class="form-select" id="master" name="master" required>
+                                    <option value="">Выберите мастера</option>
+                                    {% for master in masters %}
+                                    <option value="{{ master.id }}">{{ master.name }} - {{ master.specialization }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="appointment_date" class="form-label">Дата *</label>
+                                <input type="date" class="form-control" id="appointment_date" name="appointment_date" required>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="appointment_time" class="form-label">Время *</label>
+                                <select class="form-select" id="appointment_time" name="appointment_time" required>
+                                    <option value="">Выберите время</option>
+                                    <option value="09:00">09:00</option>
+                                    <option value="10:00">10:00</option>
+                                    <option value="11:00">11:00</option>
+                                    <option value="12:00">12:00</option>
+                                    <option value="13:00">13:00</option>
+                                    <option value="14:00">14:00</option>
+                                    <option value="15:00">15:00</option>
+                                    <option value="16:00">16:00</option>
+                                    <option value="17:00">17:00</option>
+                                    <option value="18:00">18:00</option>
+                                    <option value="19:00">19:00</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Выберите услуги</label>
+                                <div class="services-checkboxes">
+                                    {% for service in services %}
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="services" value="{{ service.id }}" id="service_{{ service.id }}">
+                                        <label class="form-check-label" for="service_{{ service.id }}">
+                                            <strong>{{ service.name }}</strong>
+                                            <span class="text-muted"> - {{ service.price }}₽</span>
+                                        </label>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                <small class="form-text text-muted">Отметьте нужные услуги</small>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="comment" class="form-label">Комментарий</label>
+                            <textarea class="form-control" id="comment" name="comment" rows="3" placeholder="Дополнительная информация о вашей заявке"></textarea>
+                        </div>
+                        
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="bi bi-calendar-check"></i> Отправить заявку
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Устанавливаем минимальную дату как сегодня
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('appointment_date').min = today;
+</script>
+{% endblock %}

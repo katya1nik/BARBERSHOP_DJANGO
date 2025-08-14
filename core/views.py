@@ -1,62 +1,63 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import Http404
 from django.contrib.auth.decorators import user_passes_test
+from django.contrib import messages
+from django.utils import timezone
+from datetime import datetime
+from core.models import Master, Service, Order
 
-# Тестовые данные
-MASTERS = [
-    {'id': 1, 'name': 'Алексей Петров', 'specialization': 'Классические стрижки'},
-    {'id': 2, 'name': 'Дмитрий Сидоров', 'specialization': 'Борода и усы'},
-    {'id': 3, 'name': 'Михаил Иванов', 'specialization': 'Современные стрижки'},
-]
-
-SERVICES = [
-    {'id': 1, 'name': 'Мужская стрижка', 'price': 800},
-    {'id': 2, 'name': 'Стрижка бороды', 'price': 500},
-    {'id': 3, 'name': 'Укладка', 'price': 300},
-    {'id': 4, 'name': 'Комплекс', 'price': 1200},
-]
-
-ORDERS = [
-    {
-        'id': 1,
-        'client_name': 'Иван Петров',
-        'phone': '+7 (999) 123-45-67',
-        'date': '2025-01-20',
-        'time': '14:00',
-        'services': ['Мужская стрижка', 'Стрижка бороды'],
-        'master_id': 1,
-        'status': 'новая',
-        'comment': 'Хочу короткую стрижку'
-    },
-    {
-        'id': 2,
-        'client_name': 'Сергей Иванов',
-        'phone': '+7 (999) 987-65-43',
-        'date': '2025-01-21',
-        'time': '16:30',
-        'services': ['Комплекс'],
-        'master_id': 2,
-        'status': 'подтверждённая',
-        'comment': ''
-    },
-    {
-        'id': 3,
-        'client_name': 'Андрей Сидоров',
-        'phone': '+7 (999) 555-44-33',
-        'date': '2025-01-22',
-        'time': '12:00',
-        'services': ['Мужская стрижка', 'Укладка'],
-        'master_id': 3,
-        'status': 'выполненная',
-        'comment': 'Постоянный клиент'
-    },
-]
+def is_staff_user(user):
+    """Проверка, является ли пользователь сотрудником"""
+    return user.is_staff
 
 def landing(request):
     """Главная страница (лендинг)"""
+    if request.method == 'POST':
+        # Получаем данные из формы
+        client_name = request.POST.get('client_name')
+        phone = request.POST.get('phone')
+        master_id = request.POST.get('master')
+        appointment_date = request.POST.get('appointment_date')
+        appointment_time = request.POST.get('appointment_time')
+        comment = request.POST.get('comment')
+        services = request.POST.getlist('services')
+        
+        print(f"DEBUG: POST данные получены: {request.POST}")
+        
+        if client_name and phone and master_id and appointment_date and appointment_time:
+            try:
+                # Создаем новый заказ
+                master = Master.objects.get(id=master_id)
+                
+                # Объединяем дату и время
+                datetime_str = f"{appointment_date} {appointment_time}"
+                appointment_datetime = datetime.strptime(datetime_str, '%Y-%m-%d %H:%M')
+                
+                # Создаем заказ с правильными полями
+                order = Order.objects.create(
+                    client_name=client_name,
+                    phone=phone,
+                    master=master,  # Используем ForeignKey
+                    appointment_date=appointment_datetime,  # Объединенная дата и время
+                    status='not_approved',  # Используем правильный статус
+                    comment=comment,
+                    date_created=timezone.now()
+                )
+                
+                print(f"DEBUG: Заказ создан с ID: {order.id}")
+                messages.success(request, f'Заявка принята! Номер заявки: #{order.id}')
+                return redirect('core:thanks')
+                
+            except Exception as e:
+                print(f"DEBUG: Ошибка: {str(e)}")
+                messages.error(request, f'Ошибка при создании заявки: {str(e)}')
+        else:
+            print(f"DEBUG: Не все поля заполнены")
+            messages.error(request, 'Пожалуйста, заполните все обязательные поля')
+    
     context = {
-        'masters': MASTERS,
-        'services': SERVICES,
+        'masters': Master.objects.all(),
+        'services': Service.objects.all(),
     }
     return render(request, 'landing.html', context)
 
@@ -64,45 +65,114 @@ def thanks(request):
     """Страница благодарности за заявку"""
     return render(request, 'thanks.html')
 
-def is_staff_user(user):
-    """Проверка, является ли пользователь сотрудником"""
-    return user.is_staff
-
-@user_passes_test(is_staff_user)
-def orders_list(request):
-    """Список заявок (только для персонала)"""
+def booking(request):
+    """Страница записи"""
+    if request.method == 'POST':
+        # Получаем данные из формы
+        client_name = request.POST.get('client_name')
+        phone = request.POST.get('phone')
+        master_id = request.POST.get('master')
+        appointment_date = request.POST.get('appointment_date')
+        appointment_time = request.POST.get('appointment_time')
+        comment = request.POST.get('comment')
+        services = request.POST.getlist('services')
+        
+        if client_name and phone and master_id and appointment_date and appointment_time:
+            try:
+                # Создаем новый заказ
+                master = Master.objects.get(id=master_id)
+                
+                # Объединяем дату и время
+                datetime_str = f"{appointment_date} {appointment_time}"
+                appointment_datetime = datetime.strptime(datetime_str, '%Y-%m-%d %H:%M')
+                
+                # Создаем заказ
+                order = Order.objects.create(
+                    client_name=client_name,
+                    phone=phone,
+                    master=master,
+                    appointment_date=appointment_datetime,
+                    status='not_approved',
+                    comment=comment,
+                    date_created=timezone.now()
+                )
+                
+                messages.success(request, f'Заявка принята! Номер заявки: #{order.id}')
+                return redirect('core:thanks')
+                
+            except Exception as e:
+                messages.error(request, f'Ошибка при создании заявки: {str(e)}')
+        else:
+            messages.error(request, 'Пожалуйста, заполните все обязательные поля')
+    
     context = {
-        'orders': ORDERS,
-        'masters': MASTERS,
+        'masters': Master.objects.all(),
+        'services': Service.objects.all(),
     }
-    return render(request, 'orders_list.html', context)
+    return render(request, 'core/booking.html', context)
 
-@user_passes_test(is_staff_user)
+def orders_list(request):
+    """Список заявок"""
+    if request.user.is_authenticated:
+        if request.user.is_staff:
+            # Персонал видит все заявки
+            orders = Order.objects.all().order_by('-date_created')
+        else:
+            # Обычные пользователи видят только свои заявки (по имени)
+            orders = Order.objects.filter(client_name=request.user.username).order_by('-date_created')
+    else:
+        # Неавторизованные пользователи перенаправляются на вход
+        return redirect('users:login')
+    
+    context = {
+        'orders': orders,
+        'masters': Master.objects.all(),
+    }
+    return render(request, 'core/orders_list.html', context)
+
 def order_detail(request, order_id):
-    """Детали заявки (только для персонала)"""
-    # Находим заявку по ID
-    order = None
-    for o in ORDERS:
-        if o['id'] == order_id:
-            order = o
-            break
+    """Детали заявки"""
+    if not request.user.is_authenticated:
+        return redirect('users:login')
     
-    if not order:
+    try:
+        order = Order.objects.get(id=order_id)
+        
+        # Проверяем права доступа
+        if not request.user.is_staff and order.client_name != request.user.username:
+            # Обычный пользователь пытается посмотреть чужую заявку
+            messages.error(request, 'У вас нет прав для просмотра этой заявки')
+            return redirect('core:orders_list')
+        
+        master = Master.objects.get(id=order.master_id) if hasattr(order, 'master_id') else None
+        services = Service.objects.all()
+    except Order.DoesNotExist:
         raise Http404("Заявка не найдена")
-    
-    # Находим мастера по ID
-    master = None
-    for m in MASTERS:
-        if m['id'] == order['master_id']:
-            master = m
-            break
-    
+
     context = {
         'order': order,
         'master': master,
-        'services': SERVICES,
+        'services': services,
     }
-    return render(request, 'order_detail.html', context)
+    return render(request, 'core/order_detail.html', context)
 
+def services(request):
+    """Страница услуг"""
+    context = {
+        'all_services': Service.objects.all(),
+    }
+    return render(request, 'core/services.html', context)
 
+def masters(request):
+    """Страница мастеров"""
+    context = {
+        'masters': Master.objects.all(),
+    }
+    return render(request, 'core/masters.html', context)
 
+def reviews(request):
+    """Страница отзывов"""
+    context = {
+        'reviews': [],  # Пока пустой список
+    }
+    return render(request, 'core/reviews.html', context)

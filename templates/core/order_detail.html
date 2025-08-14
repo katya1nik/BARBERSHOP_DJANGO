@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Детали заявки #{{ order.id }} - Барбершоп{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="mb-4">Детали заявки #{{ order.id }}</h1>
+            
+            <div class="order-detail">
+                <div class="order-info-grid">
+                    <div class="info-card">
+                        <h4>Информация о клиенте</h4>
+                        <p><strong>Имя:</strong> {{ order.client_name }}</p>
+                        <p><strong>Телефон:</strong> {{ order.phone }}</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h4>Детали записи</h4>
+                        <p><strong>Дата:</strong> {{ order.date }}</p>
+                        <p><strong>Время:</strong> {{ order.time }}</p>
+                        <p><strong>Статус:</strong> <span class="status status-{{ order.status }}">{{ order.status }}</span></p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h4>Мастер</h4>
+                        {% if master %}
+                            <p><strong>Имя:</strong> {{ master.name }}</p>
+                            <p><strong>Специализация:</strong> {{ master.specialization }}</p>
+                        {% else %}
+                            <p>Мастер не назначен</p>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="info-card">
+                        <h4>Услуги</h4>
+                        <ul class="services-list">
+                            {% for service in order.services %}
+                                <li>{{ service }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                
+                {% if order.comment %}
+                    <div class="info-card">
+                        <h4>Комментарий</h4>
+                        <p>{{ order.comment }}</p>
+                    </div>
+                {% endif %}
+            </div>
+            
+            <div class="mt-4">
+                <a href="{% url 'core:orders_list' %}" class="btn btn-secondary">← К списку заявок</a>
+                <a href="{% url 'core:landing' %}" class="btn btn-primary">На главную</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

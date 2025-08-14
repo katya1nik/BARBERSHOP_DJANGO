@@ -16,7 +16,7 @@
                     <div class="mb-4">
                         <p class="text-muted">Автоматический переход на главную страницу через <span id="countdown">10</span> секунд</p>
                     </div>
-                    <a href="{% url 'landing' %}" class="btn btn-primary btn-lg">
+                    <a href="{% url 'core:landing' %}" class="btn btn-primary btn-lg">
                         <i class="bi bi-house"></i> Вернуться на главную
                     </a>
                 </div>
@@ -38,7 +38,7 @@
         
         if (countdown <= 0) {
             clearInterval(timer);
-            window.location.href = "{% url 'landing' %}";
+            window.location.href = "{% url 'core:landing' %}";
         }
     }, 1000);
 </script>
