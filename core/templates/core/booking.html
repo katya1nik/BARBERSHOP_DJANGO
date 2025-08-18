@@ -39,6 +39,11 @@
 {% endblock %}
 
 {% block content %}
+    <script>
+        // Тестовый JavaScript в начале content блока
+        console.log('JavaScript загружен в начале content!');
+    </script>
+
 <div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-lg-8">
@@ -138,13 +143,76 @@
             </div>
         </div>
     </div>
+    
+    <script>
+        // JavaScript прямо в блоке content
+        console.log('JavaScript в content блоке!');
+        
+        // Обработчик формы
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM загружен!');
+            
+            const form = document.querySelector('.booking-form');
+            if (form) {
+                console.log('Форма найдена!');
+                
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    console.log('Форма отправляется...');
+                    
+                    // Простая отправка через AJAX
+                    const formData = new FormData(form);
+                    
+                    fetch('', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                                    .then(data => {
+                    console.log('Ответ сервера:', data);
+                    
+                    // Создаем красивое Bootstrap уведомление
+                    const alertDiv = document.createElement('div');
+                    alertDiv.className = `alert alert-${data.success ? 'success' : 'danger'} alert-dismissible fade show`;
+                    alertDiv.innerHTML = `
+                        <i class="bi bi-${data.success ? 'check-circle' : 'exclamation-triangle'}"></i>
+                        ${data.message}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    `;
+                    
+                    // Вставляем уведомление перед формой
+                    form.parentNode.insertBefore(alertDiv, form);
+                    
+                    if (data.success) {
+                        form.reset();
+                        // Автоматически скрываем уведомление через 5 секунд
+                        setTimeout(() => {
+                            if (alertDiv.parentNode) {
+                                alertDiv.remove();
+                            }
+                        }, 5000);
+                    }
+                })
+                .catch(error => {
+                    console.error('Ошибка:', error);
+                    
+                    // Создаем уведомление об ошибке
+                    const alertDiv = document.createElement('div');
+                    alertDiv.className = 'alert alert-danger alert-dismissible fade show';
+                    alertDiv.innerHTML = `
+                        <i class="bi bi-exclamation-triangle"></i>
+                        Произошла ошибка при отправке заявки
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    `;
+                    
+                    form.parentNode.insertBefore(alertDiv, form);
+                });
+                });
+            } else {
+                console.error('Форма не найдена!');
+            }
+        });
+    </script>
 </div>
 {% endblock %}
 
-{% block scripts %}
-<script>
-    // Устанавливаем минимальную дату как сегодня
-    const today = new Date().toISOString().split('T')[0];
-    document.getElementById('appointment_date').min = today;
-</script>
-{% endblock %}

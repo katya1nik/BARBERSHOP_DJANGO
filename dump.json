@@ -1,0 +1,1449 @@
+{
+  "users": [
+    {
+      "model": "auth.user",
+      "pk": 1,
+      "fields": {
+        "password": "pbkdf2_sha256$1000000$hBpAbeZyeOU7sHLL2BbFrm$fMXgsExmWlR8mHxXANKpV1KzjWbLOgx2VpyW9KLF3lU=",
+        "last_login": null,
+        "is_superuser": true,
+        "username": "Username",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2025-06-25 17:57:36.178233+00:00",
+        "groups": [],
+        "user_permissions": []
+      }
+    },
+    {
+      "model": "auth.user",
+      "pk": 2,
+      "fields": {
+        "password": "pbkdf2_sha256$1000000$WsVkveS6aTolAC6ihsJfm9$6idzayNQBwPemBK6OXCYtKzOjdmrVLe7oNQGdBwX2jg=",
+        "last_login": null,
+        "is_superuser": true,
+        "username": "User",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2025-06-25 18:02:24.907602+00:00",
+        "groups": [],
+        "user_permissions": []
+      }
+    },
+    {
+      "model": "auth.user",
+      "pk": 3,
+      "fields": {
+        "password": "pbkdf2_sha256$1000000$hIq9nyv9p5bhykj3hnDCtx$9hP/M6gGeK70TDokGX2Q8hxe4enTP1bazTQ0FcIcl38=",
+        "last_login": "2025-08-15 23:03:31.944335+00:00",
+        "is_superuser": true,
+        "username": "admin",
+        "first_name": "",
+        "last_name": "",
+        "email": "admin@test.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2025-07-01 19:07:21.589104+00:00",
+        "groups": [],
+        "user_permissions": []
+      }
+    },
+    {
+      "model": "auth.user",
+      "pk": 4,
+      "fields": {
+        "password": "pbkdf2_sha256$1000000$DSGdFvHWBtR2mMHbFhQf7u$2JaX8nMqcdUlgflifrlb+hprbYHJWaSjXaEpC+FCUco=",
+        "last_login": null,
+        "is_superuser": true,
+        "username": "manager",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2025-07-09 20:49:37.430628+00:00",
+        "groups": [],
+        "user_permissions": []
+      }
+    },
+    {
+      "model": "auth.user",
+      "pk": 5,
+      "fields": {
+        "password": "pbkdf2_sha256$1000000$CpilBrlIeULJm9QACt0Tpk$z7e+hUXBJO5lhJ7psMEtzOnXs3k+7rcE3LIfTcoAAlk=",
+        "last_login": "2025-07-18 18:51:33.463920+00:00",
+        "is_superuser": true,
+        "username": "admin_1",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2025-07-12 20:04:36.619658+00:00",
+        "groups": [],
+        "user_permissions": []
+      }
+    },
+    {
+      "model": "auth.user",
+      "pk": 6,
+      "fields": {
+        "password": "pbkdf2_sha256$1000000$IjUuCOditgFEmV7pycLaFQ$5JLsGf25cqN6wfkoCEuQvcxkNd5+b60EhBGqVv8XDpY=",
+        "last_login": "2025-07-18 19:18:09.325611+00:00",
+        "is_superuser": false,
+        "username": "Ekaterina",
+        "first_name": "",
+        "last_name": "",
+        "email": "katya1nik@yandex.ru",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-07-18 19:06:51.044475+00:00",
+        "groups": [],
+        "user_permissions": []
+      }
+    },
+    {
+      "model": "auth.user",
+      "pk": 7,
+      "fields": {
+        "password": "pbkdf2_sha256$1000000$xWwia4kwCRvPTOBHqqqXM1$F1wfTBhqblfrOaDJgcQUWBM+TzuheUc98RDTaoTTcTA=",
+        "last_login": "2025-08-15 22:56:59.756992+00:00",
+        "is_superuser": false,
+        "username": "avrora",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-08-15 20:56:47.256516+00:00",
+        "groups": [],
+        "user_permissions": []
+      }
+    },
+    {
+      "model": "auth.user",
+      "pk": 8,
+      "fields": {
+        "password": "pbkdf2_sha256$1000000$EsnIGWeDoPdyQLl3qpYBdW$/kLEQqTlqALeVNbiQom09uJzEDlB/70EGnAwIGMlDqo=",
+        "last_login": null,
+        "is_superuser": true,
+        "username": "add_min",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2025-08-15 23:06:08.695544+00:00",
+        "groups": [],
+        "user_permissions": []
+      }
+    },
+    {
+      "model": "auth.user",
+      "pk": 9,
+      "fields": {
+        "password": "pbkdf2_sha256$1000000$7CTUPtrVKqeIoVK8Mx7WDO$2FuOdnAaooVTiqllUiS3+TSOzr26MruiE8dSp2uFOfc=",
+        "last_login": "2025-08-17 20:01:34.437959+00:00",
+        "is_superuser": true,
+        "username": "add_boss",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2025-08-15 23:10:03.706476+00:00",
+        "groups": [],
+        "user_permissions": []
+      }
+    },
+    {
+      "model": "auth.user",
+      "pk": 10,
+      "fields": {
+        "password": "pbkdf2_sha256$1000000$SX2MGBHsopa1YlPae4kgC1$qvBAlu1sxUITNhw4NqlGQ7cFezq7o+u5YkIYIQTR0DA=",
+        "last_login": "2025-08-17 20:24:56.885108+00:00",
+        "is_superuser": true,
+        "username": "Toshka",
+        "first_name": "",
+        "last_name": "",
+        "email": "katya1nik@yandex.ru",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2025-08-16 20:44:01.403537+00:00",
+        "groups": [],
+        "user_permissions": []
+      }
+    },
+    {
+      "model": "auth.user",
+      "pk": 11,
+      "fields": {
+        "password": "pbkdf2_sha256$1000000$iYcDeoz58IB1D8gR23RSwq$YBwbv833AvNnULsjtwYtQ6+gwreY0Wjqci2Se5/PxC4=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "testuser",
+        "first_name": "Тест",
+        "last_name": "Пользователь",
+        "email": "test@example.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-08-16 20:50:19.141995+00:00",
+        "groups": [],
+        "user_permissions": []
+      }
+    }
+  ],
+  "user_profiles": [
+    {
+      "model": "users.userprofile",
+      "pk": 1,
+      "fields": {
+        "user": 11,
+        "avatar": "",
+        "birth_date": null,
+        "telegram_id": "",
+        "github_id": ""
+      }
+    },
+    {
+      "model": "users.userprofile",
+      "pk": 2,
+      "fields": {
+        "user": 1,
+        "avatar": "",
+        "birth_date": null,
+        "telegram_id": "",
+        "github_id": ""
+      }
+    },
+    {
+      "model": "users.userprofile",
+      "pk": 3,
+      "fields": {
+        "user": 2,
+        "avatar": "",
+        "birth_date": null,
+        "telegram_id": "",
+        "github_id": ""
+      }
+    },
+    {
+      "model": "users.userprofile",
+      "pk": 4,
+      "fields": {
+        "user": 3,
+        "avatar": "",
+        "birth_date": null,
+        "telegram_id": "",
+        "github_id": ""
+      }
+    },
+    {
+      "model": "users.userprofile",
+      "pk": 5,
+      "fields": {
+        "user": 4,
+        "avatar": "",
+        "birth_date": null,
+        "telegram_id": "",
+        "github_id": ""
+      }
+    },
+    {
+      "model": "users.userprofile",
+      "pk": 6,
+      "fields": {
+        "user": 5,
+        "avatar": "",
+        "birth_date": null,
+        "telegram_id": "",
+        "github_id": ""
+      }
+    },
+    {
+      "model": "users.userprofile",
+      "pk": 7,
+      "fields": {
+        "user": 6,
+        "avatar": "",
+        "birth_date": null,
+        "telegram_id": "",
+        "github_id": ""
+      }
+    },
+    {
+      "model": "users.userprofile",
+      "pk": 8,
+      "fields": {
+        "user": 7,
+        "avatar": "",
+        "birth_date": null,
+        "telegram_id": "",
+        "github_id": ""
+      }
+    },
+    {
+      "model": "users.userprofile",
+      "pk": 9,
+      "fields": {
+        "user": 8,
+        "avatar": "",
+        "birth_date": null,
+        "telegram_id": "",
+        "github_id": ""
+      }
+    },
+    {
+      "model": "users.userprofile",
+      "pk": 10,
+      "fields": {
+        "user": 9,
+        "avatar": "",
+        "birth_date": null,
+        "telegram_id": "",
+        "github_id": ""
+      }
+    },
+    {
+      "model": "users.userprofile",
+      "pk": 11,
+      "fields": {
+        "user": 10,
+        "avatar": "",
+        "birth_date": null,
+        "telegram_id": "",
+        "github_id": ""
+      }
+    }
+  ],
+  "masters": [
+    {
+      "model": "core.master",
+      "pk": 1,
+      "fields": {
+        "name": "Алексей Петров",
+        "photo": "",
+        "phone": "+7 (999) 123-45-67",
+        "address": "ул. Ленина, 15",
+        "experience": 5,
+        "specialization": "",
+        "is_active": true,
+        "services": [
+          1,
+          2,
+          3
+        ]
+      }
+    },
+    {
+      "model": "core.master",
+      "pk": 2,
+      "fields": {
+        "name": "Дмитрий Сидоров",
+        "photo": "",
+        "phone": "+7 (999) 234-56-78",
+        "address": "пр. Мира, 22",
+        "experience": 8,
+        "specialization": "",
+        "is_active": true,
+        "services": [
+          1,
+          4,
+          5
+        ]
+      }
+    },
+    {
+      "model": "core.master",
+      "pk": 3,
+      "fields": {
+        "name": "Михаил Иванов",
+        "photo": "",
+        "phone": "+7 (999) 345-67-89",
+        "address": "ул. Советская, 8",
+        "experience": 3,
+        "specialization": "",
+        "is_active": true,
+        "services": [
+          2,
+          3,
+          5
+        ]
+      }
+    },
+    {
+      "model": "core.master",
+      "pk": 4,
+      "fields": {
+        "name": "Иванов Иван Иванович",
+        "photo": "masters/free-icon-russia-9994030.png",
+        "phone": "9157772456",
+        "address": "",
+        "experience": 8,
+        "specialization": "",
+        "is_active": true,
+        "services": [
+          1
+        ]
+      }
+    },
+    {
+      "model": "core.master",
+      "pk": 5,
+      "fields": {
+        "name": "Петров Петруша",
+        "photo": "masters/free-icon-united-kingdom-8363562.png",
+        "phone": "9157772456",
+        "address": "",
+        "experience": 11,
+        "specialization": "",
+        "is_active": true,
+        "services": [
+          2,
+          3,
+          5
+        ]
+      }
+    },
+    {
+      "model": "core.master",
+      "pk": 6,
+      "fields": {
+        "name": "Сидоров Сидр",
+        "photo": "masters/Дикаприо.PNG",
+        "phone": "9157772456",
+        "address": "",
+        "experience": 1,
+        "specialization": "Мужская стрижка",
+        "is_active": true,
+        "services": [
+          4
+        ]
+      }
+    },
+    {
+      "model": "core.master",
+      "pk": 7,
+      "fields": {
+        "name": "Новенький",
+        "photo": "masters/БП.PNG",
+        "phone": "9157772456",
+        "address": "",
+        "experience": 1,
+        "specialization": "Усы",
+        "is_active": true,
+        "services": [
+          1
+        ]
+      }
+    },
+    {
+      "model": "core.master",
+      "pk": 8,
+      "fields": {
+        "name": "Самуил",
+        "photo": "",
+        "phone": "9157772456",
+        "address": "",
+        "experience": 5,
+        "specialization": "окраска лысины",
+        "is_active": false,
+        "services": [
+          1,
+          9
+        ]
+      }
+    },
+    {
+      "model": "core.master",
+      "pk": 9,
+      "fields": {
+        "name": "Татунхамон",
+        "photo": "",
+        "phone": "9157772456",
+        "address": "Горького, 5",
+        "experience": 1,
+        "specialization": "",
+        "is_active": false,
+        "services": [
+          10
+        ]
+      }
+    }
+  ],
+  "services": [
+    {
+      "model": "core.service",
+      "pk": 1,
+      "fields": {
+        "name": "Мужская стрижка",
+        "description": "Классическая мужская стрижка с укладкой",
+        "price": "1500.00",
+        "duration": 45,
+        "is_popular": true,
+        "image": ""
+      }
+    },
+    {
+      "model": "core.service",
+      "pk": 2,
+      "fields": {
+        "name": "Стрижка бороды",
+        "description": "Моделирование и стрижка бороды",
+        "price": "800.00",
+        "duration": 30,
+        "is_popular": true,
+        "image": ""
+      }
+    },
+    {
+      "model": "core.service",
+      "pk": 3,
+      "fields": {
+        "name": "Бритье",
+        "description": "Классическое бритье опасной бритвой",
+        "price": "1200.00",
+        "duration": 40,
+        "is_popular": false,
+        "image": ""
+      }
+    },
+    {
+      "model": "core.service",
+      "pk": 4,
+      "fields": {
+        "name": "Детская стрижка",
+        "description": "Стрижка для детей до 12 лет",
+        "price": "1000.00",
+        "duration": 30,
+        "is_popular": true,
+        "image": ""
+      }
+    },
+    {
+      "model": "core.service",
+      "pk": 5,
+      "fields": {
+        "name": "Укладка волос",
+        "description": "Профессиональная укладка волос",
+        "price": "600.00",
+        "duration": 20,
+        "is_popular": false,
+        "image": ""
+      }
+    },
+    {
+      "model": "core.service",
+      "pk": 6,
+      "fields": {
+        "name": "завивка бровей",
+        "description": "",
+        "price": "1000.00",
+        "duration": 30,
+        "is_popular": false,
+        "image": ""
+      }
+    },
+    {
+      "model": "core.service",
+      "pk": 7,
+      "fields": {
+        "name": "бритье ресниц",
+        "description": "",
+        "price": "2000.00",
+        "duration": 25,
+        "is_popular": true,
+        "image": ""
+      }
+    },
+    {
+      "model": "core.service",
+      "pk": 8,
+      "fields": {
+        "name": "полировка щетины",
+        "description": "",
+        "price": "1500.00",
+        "duration": 50,
+        "is_popular": false,
+        "image": ""
+      }
+    },
+    {
+      "model": "core.service",
+      "pk": 9,
+      "fields": {
+        "name": "окраска лысины",
+        "description": "",
+        "price": "3000.00",
+        "duration": 60,
+        "is_popular": true,
+        "image": ""
+      }
+    },
+    {
+      "model": "core.service",
+      "pk": 10,
+      "fields": {
+        "name": "Мытье ноздрей",
+        "description": "Помыв ноздрей водонапорным шлангом",
+        "price": "5000.00",
+        "duration": 100,
+        "is_popular": false,
+        "image": ""
+      }
+    }
+  ],
+  "orders": [
+    {
+      "model": "core.order",
+      "pk": 1,
+      "fields": {
+        "client_name": "Иван Петров",
+        "phone": "+7 (999) 111-22-33",
+        "status": "not_approved",
+        "master": 1,
+        "services": [
+          1
+        ]
+      }
+    },
+    {
+      "model": "core.order",
+      "pk": 2,
+      "fields": {
+        "client_name": "Сергей Козлов",
+        "phone": "+7 (999) 444-55-66",
+        "status": "not_approved",
+        "master": 2,
+        "services": [
+          1,
+          2
+        ]
+      }
+    },
+    {
+      "model": "core.order",
+      "pk": 3,
+      "fields": {
+        "client_name": "Андрей Смирнов",
+        "phone": "+7 (999) 777-88-99",
+        "status": "completed",
+        "master": 3,
+        "services": [
+          3
+        ]
+      }
+    },
+    {
+      "model": "core.order",
+      "pk": 4,
+      "fields": {
+        "client_name": "Герой",
+        "phone": "9157772456",
+        "status": "approved",
+        "master": 4,
+        "services": [
+          1
+        ]
+      }
+    },
+    {
+      "model": "core.order",
+      "pk": 5,
+      "fields": {
+        "client_name": "Антигерой",
+        "phone": "9157772456",
+        "status": "approved",
+        "master": 4,
+        "services": [
+          8
+        ]
+      }
+    },
+    {
+      "model": "core.order",
+      "pk": 6,
+      "fields": {
+        "client_name": "Кукуня",
+        "phone": "9157772456",
+        "status": "not_approved",
+        "master": 6,
+        "services": [
+          1,
+          2,
+          3,
+          5,
+          6,
+          8
+        ]
+      }
+    },
+    {
+      "model": "core.order",
+      "pk": 7,
+      "fields": {
+        "client_name": "Зюзик",
+        "phone": "9157772456",
+        "status": "not_approved",
+        "master": 2,
+        "services": [
+          5
+        ]
+      }
+    },
+    {
+      "model": "core.order",
+      "pk": 8,
+      "fields": {
+        "client_name": "Я",
+        "phone": "9157772456",
+        "status": "approved",
+        "master": 3,
+        "services": [
+          5
+        ]
+      }
+    },
+    {
+      "model": "core.order",
+      "pk": 9,
+      "fields": {
+        "client_name": "Пупсик",
+        "phone": "+79157772456",
+        "status": "not_approved",
+        "master": 2,
+        "services": [
+          1
+        ]
+      }
+    },
+    {
+      "model": "core.order",
+      "pk": 10,
+      "fields": {
+        "client_name": "Меланхолик",
+        "phone": "+79157772456",
+        "status": "not_approved",
+        "master": 4,
+        "services": [
+          1
+        ]
+      }
+    },
+    {
+      "model": "core.order",
+      "pk": 11,
+      "fields": {
+        "client_name": "Антигерой",
+        "phone": "+79157772456",
+        "status": "not_approved",
+        "master": 4,
+        "services": [
+          1
+        ]
+      }
+    },
+    {
+      "model": "core.order",
+      "pk": 12,
+      "fields": {
+        "client_name": "Мурфик",
+        "phone": "+79157772456",
+        "status": "not_approved",
+        "master": 1,
+        "services": [
+          1,
+          2,
+          3
+        ]
+      }
+    },
+    {
+      "model": "core.order",
+      "pk": 13,
+      "fields": {
+        "client_name": "Пупсик",
+        "phone": "89157772456",
+        "status": "not_approved",
+        "master": 1,
+        "services": [
+          3
+        ]
+      }
+    },
+    {
+      "model": "core.order",
+      "pk": 14,
+      "fields": {
+        "client_name": "Пупсик",
+        "phone": "89157772456",
+        "status": "not_approved",
+        "master": 1,
+        "services": [
+          3
+        ]
+      }
+    },
+    {
+      "model": "core.order",
+      "pk": 15,
+      "fields": {
+        "client_name": "Козлик",
+        "phone": "+79157772456",
+        "status": "not_approved",
+        "master": 7,
+        "services": [
+          1
+        ]
+      }
+    },
+    {
+      "model": "core.order",
+      "pk": 16,
+      "fields": {
+        "client_name": "Козлик",
+        "phone": "+79157772456",
+        "status": "not_approved",
+        "master": 7,
+        "services": [
+          1
+        ]
+      }
+    },
+    {
+      "model": "core.order",
+      "pk": 17,
+      "fields": {
+        "client_name": "Меланхолик",
+        "phone": "9157772456",
+        "status": "not_approved",
+        "master": 2,
+        "services": [
+          1,
+          7,
+          8
+        ]
+      }
+    },
+    {
+      "model": "core.order",
+      "pk": 18,
+      "fields": {
+        "client_name": "Меланхолик",
+        "phone": "9157772456",
+        "status": "not_approved",
+        "master": 2,
+        "services": [
+          1,
+          7,
+          8
+        ]
+      }
+    },
+    {
+      "model": "core.order",
+      "pk": 19,
+      "fields": {
+        "client_name": "Меланхолик",
+        "phone": "9157772456",
+        "status": "not_approved",
+        "master": 2,
+        "services": [
+          1,
+          7,
+          8
+        ]
+      }
+    },
+    {
+      "model": "core.order",
+      "pk": 20,
+      "fields": {
+        "client_name": "Меланхолик",
+        "phone": "9157772456",
+        "status": "not_approved",
+        "master": 2,
+        "services": [
+          1,
+          7,
+          8
+        ]
+      }
+    },
+    {
+      "model": "core.order",
+      "pk": 21,
+      "fields": {
+        "client_name": "Меланхолик",
+        "phone": "9157772456",
+        "status": "not_approved",
+        "master": 2,
+        "services": [
+          1,
+          7,
+          8
+        ]
+      }
+    },
+    {
+      "model": "core.order",
+      "pk": 22,
+      "fields": {
+        "client_name": "Меланхолик",
+        "phone": "9157772456",
+        "status": "not_approved",
+        "master": 2,
+        "services": [
+          1,
+          7,
+          8
+        ]
+      }
+    },
+    {
+      "model": "core.order",
+      "pk": 23,
+      "fields": {
+        "client_name": "Меланхолик",
+        "phone": "9157772456",
+        "status": "not_approved",
+        "master": 2,
+        "services": [
+          1,
+          7,
+          8
+        ]
+      }
+    },
+    {
+      "model": "core.order",
+      "pk": 24,
+      "fields": {
+        "client_name": "Меланхолик",
+        "phone": "9157772456",
+        "status": "not_approved",
+        "master": 2,
+        "services": [
+          1,
+          7,
+          8
+        ]
+      }
+    },
+    {
+      "model": "core.order",
+      "pk": 25,
+      "fields": {
+        "client_name": "Меланхолик",
+        "phone": "9157772456",
+        "status": "not_approved",
+        "master": 2,
+        "services": [
+          1,
+          7,
+          8
+        ]
+      }
+    },
+    {
+      "model": "core.order",
+      "pk": 26,
+      "fields": {
+        "client_name": "Меланхолик",
+        "phone": "9157772456",
+        "status": "not_approved",
+        "master": 2,
+        "services": [
+          1,
+          7,
+          8
+        ]
+      }
+    },
+    {
+      "model": "core.order",
+      "pk": 27,
+      "fields": {
+        "client_name": "Меланхолик",
+        "phone": "9157772456",
+        "status": "not_approved",
+        "master": 2,
+        "services": [
+          1,
+          7,
+          8
+        ]
+      }
+    },
+    {
+      "model": "core.order",
+      "pk": 28,
+      "fields": {
+        "client_name": "Меланхолик",
+        "phone": "9157772456",
+        "status": "not_approved",
+        "master": 2,
+        "services": [
+          1,
+          7,
+          8
+        ]
+      }
+    },
+    {
+      "model": "core.order",
+      "pk": 29,
+      "fields": {
+        "client_name": "Меланхолик",
+        "phone": "9157772456",
+        "status": "not_approved",
+        "master": 2,
+        "services": [
+          1,
+          7,
+          8
+        ]
+      }
+    },
+    {
+      "model": "core.order",
+      "pk": 30,
+      "fields": {
+        "client_name": "Меланхолик",
+        "phone": "9157772456",
+        "status": "not_approved",
+        "master": 2,
+        "services": [
+          1,
+          7,
+          8
+        ]
+      }
+    },
+    {
+      "model": "core.order",
+      "pk": 31,
+      "fields": {
+        "client_name": "Меланхолик",
+        "phone": "9157772456",
+        "status": "not_approved",
+        "master": 2,
+        "services": [
+          1,
+          7,
+          8
+        ]
+      }
+    },
+    {
+      "model": "core.order",
+      "pk": 32,
+      "fields": {
+        "client_name": "Мурфик",
+        "phone": "9157772456",
+        "status": "not_approved",
+        "master": 4,
+        "services": [
+          4
+        ]
+      }
+    },
+    {
+      "model": "core.order",
+      "pk": 33,
+      "fields": {
+        "client_name": "Мурфик",
+        "phone": "9157772456",
+        "status": "not_approved",
+        "master": 4,
+        "services": [
+          4
+        ]
+      }
+    },
+    {
+      "model": "core.order",
+      "pk": 34,
+      "fields": {
+        "client_name": "Антигерой",
+        "phone": "9157772456",
+        "status": "not_approved",
+        "master": 5,
+        "services": [
+          4
+        ]
+      }
+    },
+    {
+      "model": "core.order",
+      "pk": 35,
+      "fields": {
+        "client_name": "Антигерой",
+        "phone": "9157772456",
+        "status": "not_approved",
+        "master": 5,
+        "services": [
+          4
+        ]
+      }
+    },
+    {
+      "model": "core.order",
+      "pk": 36,
+      "fields": {
+        "client_name": "Антигерой",
+        "phone": "9157772456",
+        "status": "not_approved",
+        "master": 5,
+        "services": [
+          4
+        ]
+      }
+    },
+    {
+      "model": "core.order",
+      "pk": 37,
+      "fields": {
+        "client_name": "Антигерой",
+        "phone": "9157772456",
+        "status": "not_approved",
+        "master": 5,
+        "services": [
+          4
+        ]
+      }
+    },
+    {
+      "model": "core.order",
+      "pk": 38,
+      "fields": {
+        "client_name": "Антигерой",
+        "phone": "9157772456",
+        "status": "not_approved",
+        "master": 5,
+        "services": [
+          4
+        ]
+      }
+    },
+    {
+      "model": "core.order",
+      "pk": 39,
+      "fields": {
+        "client_name": "Антигерой",
+        "phone": "9157772456",
+        "status": "not_approved",
+        "master": 5,
+        "services": [
+          4
+        ]
+      }
+    },
+    {
+      "model": "core.order",
+      "pk": 40,
+      "fields": {
+        "client_name": "Антигерой",
+        "phone": "9157772456",
+        "status": "not_approved",
+        "master": 4,
+        "services": [
+          7
+        ]
+      }
+    },
+    {
+      "model": "core.order",
+      "pk": 41,
+      "fields": {
+        "client_name": "Антигерой",
+        "phone": "9157772456",
+        "status": "not_approved",
+        "master": 4,
+        "services": [
+          7
+        ]
+      }
+    },
+    {
+      "model": "core.order",
+      "pk": 42,
+      "fields": {
+        "client_name": "Антигерой",
+        "phone": "9157772456",
+        "status": "not_approved",
+        "master": 4,
+        "services": [
+          7
+        ]
+      }
+    },
+    {
+      "model": "core.order",
+      "pk": 43,
+      "fields": {
+        "client_name": "Антигерой",
+        "phone": "9157772456",
+        "status": "not_approved",
+        "master": 4,
+        "services": [
+          7
+        ]
+      }
+    },
+    {
+      "model": "core.order",
+      "pk": 44,
+      "fields": {
+        "client_name": "Мурфик",
+        "phone": "9157772456",
+        "status": "not_approved",
+        "master": 2,
+        "services": [
+          2
+        ]
+      }
+    },
+    {
+      "model": "core.order",
+      "pk": 45,
+      "fields": {
+        "client_name": "Мурфик",
+        "phone": "9157772456",
+        "status": "not_approved",
+        "master": 2,
+        "services": [
+          2
+        ]
+      }
+    },
+    {
+      "model": "core.order",
+      "pk": 46,
+      "fields": {
+        "client_name": "Мурфик",
+        "phone": "9157772456",
+        "status": "not_approved",
+        "master": 3,
+        "services": [
+          4
+        ]
+      }
+    },
+    {
+      "model": "core.order",
+      "pk": 47,
+      "fields": {
+        "client_name": "Екатерина",
+        "phone": "9157772456",
+        "status": "not_approved",
+        "master": 3,
+        "services": [
+          8
+        ]
+      }
+    },
+    {
+      "model": "core.order",
+      "pk": 48,
+      "fields": {
+        "client_name": "Антигерой",
+        "phone": "9157772456",
+        "status": "not_approved",
+        "master": 2,
+        "services": [
+          9
+        ]
+      }
+    },
+    {
+      "model": "core.order",
+      "pk": 49,
+      "fields": {
+        "client_name": "Смурфик",
+        "phone": "9157772456",
+        "status": "not_approved",
+        "master": 5,
+        "services": [
+          4
+        ]
+      }
+    }
+  ],
+  "reviews": [
+    {
+      "model": "core.review",
+      "pk": 12,
+      "fields": {
+        "text": "Еще обязательно приду.",
+        "client_name": "Ляля",
+        "master": 3,
+        "photo": "",
+        "created_at": "2025-07-22 19:30:35.823645+00:00",
+        "rating": 5,
+        "is_published": true,
+        "ai_checked_status": "ai_checked_false"
+      }
+    },
+    {
+      "model": "core.review",
+      "pk": 11,
+      "fields": {
+        "text": "Все круто!",
+        "client_name": "Меланхолик",
+        "master": 4,
+        "photo": "",
+        "created_at": "2025-07-17 19:59:05.152187+00:00",
+        "rating": 5,
+        "is_published": true,
+        "ai_checked_status": "ai_checked_true"
+      }
+    },
+    {
+      "model": "core.review",
+      "pk": 10,
+      "fields": {
+        "text": "Зайка!",
+        "client_name": "Антиняшечка",
+        "master": 9,
+        "photo": "",
+        "created_at": "2025-07-12 21:25:48.684503+00:00",
+        "rating": 5,
+        "is_published": true,
+        "ai_checked_status": "ai_checked_true"
+      }
+    },
+    {
+      "model": "core.review",
+      "pk": 9,
+      "fields": {
+        "text": "kfjguithuirtj",
+        "client_name": "Няшечка",
+        "master": 9,
+        "photo": "",
+        "created_at": "2025-07-12 20:24:19.572063+00:00",
+        "rating": 1,
+        "is_published": true,
+        "ai_checked_status": "ai_checked_true"
+      }
+    },
+    {
+      "model": "core.review",
+      "pk": 8,
+      "fields": {
+        "text": "Просто грустно...",
+        "client_name": "Черный_понедельник",
+        "master": 8,
+        "photo": "",
+        "created_at": "2025-07-09 20:55:34.277147+00:00",
+        "rating": 3,
+        "is_published": true,
+        "ai_checked_status": "ai_checked_false"
+      }
+    },
+    {
+      "model": "core.review",
+      "pk": 7,
+      "fields": {
+        "text": "Просто милашка!",
+        "client_name": "Жужик",
+        "master": 2,
+        "photo": "",
+        "created_at": "2025-07-02 18:33:25.053784+00:00",
+        "rating": 5,
+        "is_published": true,
+        "ai_checked_status": "ai_checked_false"
+      }
+    },
+    {
+      "model": "core.review",
+      "pk": 6,
+      "fields": {
+        "text": "Вообще не понял, зачем пришел :(",
+        "client_name": "Обиженка",
+        "master": 6,
+        "photo": "",
+        "created_at": "2025-07-01 19:23:18.285699+00:00",
+        "rating": 1,
+        "is_published": true,
+        "ai_checked_status": "ai_checked_false"
+      }
+    },
+    {
+      "model": "core.review",
+      "pk": 5,
+      "fields": {
+        "text": "Подстригли супер! Побрить наголо не каждому под силу!",
+        "client_name": "Смурфик",
+        "master": 4,
+        "photo": "",
+        "created_at": "2025-07-01 19:22:39.560001+00:00",
+        "rating": 5,
+        "is_published": true,
+        "ai_checked_status": "ai_checked_false"
+      }
+    },
+    {
+      "model": "core.review",
+      "pk": 4,
+      "fields": {
+        "text": "Завивка усов супер! Приду еще!",
+        "client_name": "Мурфик",
+        "master": 5,
+        "photo": "",
+        "created_at": "2025-07-01 19:21:29.221715+00:00",
+        "rating": 5,
+        "is_published": true,
+        "ai_checked_status": "ai_checked_false"
+      }
+    },
+    {
+      "model": "core.review",
+      "pk": 3,
+      "fields": {
+        "text": "Превосходно! Буду приходить еще.",
+        "client_name": "Олег Васильев",
+        "master": 2,
+        "photo": "",
+        "created_at": "2025-06-25 18:31:11.256170+00:00",
+        "rating": 5,
+        "is_published": true,
+        "ai_checked_status": "ai_checked_false"
+      }
+    },
+    {
+      "model": "core.review",
+      "pk": 2,
+      "fields": {
+        "text": "Хороший мастер, но долго ждал своей очереди.",
+        "client_name": "Петр Николаев",
+        "master": 1,
+        "photo": "",
+        "created_at": "2025-06-25 18:31:11.248294+00:00",
+        "rating": 4,
+        "is_published": true,
+        "ai_checked_status": "ai_checked_false"
+      }
+    },
+    {
+      "model": "core.review",
+      "pk": 1,
+      "fields": {
+        "text": "Отличная работа! Очень доволен результатом.",
+        "client_name": "Андрей Смирнов",
+        "master": 3,
+        "photo": "",
+        "created_at": "2025-06-25 18:31:11.239414+00:00",
+        "rating": 5,
+        "is_published": true,
+        "ai_checked_status": "ai_checked_false"
+      }
+    }
+  ]
+}

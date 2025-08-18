@@ -19,16 +19,14 @@
                     
                     <div class="info-card">
                         <h4>Детали записи</h4>
-                        <p><strong>Дата:</strong> {{ order.date }}</p>
-                        <p><strong>Время:</strong> {{ order.time }}</p>
-                        <p><strong>Статус:</strong> <span class="status status-{{ order.status }}">{{ order.status }}</span></p>
+                        <p><strong>ID заказа:</strong> {{ order.id }}</p>
                     </div>
                     
                     <div class="info-card">
                         <h4>Мастер</h4>
-                        {% if master %}
-                            <p><strong>Имя:</strong> {{ master.name }}</p>
-                            <p><strong>Специализация:</strong> {{ master.specialization }}</p>
+                        {% if order.master %}
+                            <p><strong>Имя:</strong> {{ order.master.name }}</p>
+                            <p><strong>Специализация:</strong> {{ order.master.specialization }}</p>
                         {% else %}
                             <p>Мастер не назначен</p>
                         {% endif %}
@@ -37,24 +35,21 @@
                     <div class="info-card">
                         <h4>Услуги</h4>
                         <ul class="services-list">
-                            {% for service in order.services %}
-                                <li>{{ service }}</li>
-                            {% endfor %}
+                            {% if order.services.all %}
+                                {% for service in order.services.all %}
+                                    <li>{{ service.name }} - {{ service.price }}₽</li>
+                                {% endfor %}
+                            {% else %}
+                                <li>Услуги не выбраны</li>
+                            {% endif %}
                         </ul>
                     </div>
                 </div>
                 
-                {% if order.comment %}
-                    <div class="info-card">
-                        <h4>Комментарий</h4>
-                        <p>{{ order.comment }}</p>
-                    </div>
-                {% endif %}
-            </div>
-            
-            <div class="mt-4">
-                <a href="{% url 'core:orders_list' %}" class="btn btn-secondary">← К списку заявок</a>
-                <a href="{% url 'core:landing' %}" class="btn btn-primary">На главную</a>
+                <div class="mt-4">
+                    <a href="{% url 'core:orders_list' %}" class="btn btn-secondary">← К списку заявок</a>
+                    <a href="{% url 'core:landing' %}" class="btn btn-primary">На главную</a>
+                </div>
             </div>
         </div>
     </div>

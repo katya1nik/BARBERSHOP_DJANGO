@@ -8,3 +8,167 @@
 [33m10a212a[m hw_21: обновлены файлы проекта
 [33m66d11b7[m hw_21: разрешен конфликт в pyproject.toml, объединены изменения с itub
 [33ma0e5040[m hw_21: исправлено с учетом полученных комментариев
+[1mdiff --git a/users/views.py b/users/views.py[m
+[1mindex 60c9da1..05044fa 100644[m
+[1m--- a/users/views.py[m
+[1m+++ b/users/views.py[m
+[36m@@ -1,14 +1,24 @@[m
+[31m-from django.shortcuts import redirect[m
+[31m-from django.contrib.auth.views import LoginView, LogoutView[m
+[31m-from django.views.generic import CreateView[m
+[32m+[m[32m﻿from django.shortcuts import redirect, get_object_or_404[m
+[32m+[m[32mfrom django.contrib.auth.views import ([m
+[32m+[m[32m    LoginView, LogoutView, PasswordChangeView, PasswordResetView,[m
+[32m+[m[32m    PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView[m
+[32m+[m[32m)[m
+[32m+[m[32mfrom django.views.generic import CreateView, DetailView, UpdateView[m
+ from django.contrib import messages[m
+[32m+[m[32mfrom django.contrib.auth.mixins import LoginRequiredMixin[m
+[32m+[m[32mfrom django.contrib.auth import login[m
+ from django.urls import reverse_lazy[m
+[31m-from .forms import LoginForm, RegisterForm[m
+[32m+[m[32mfrom django.contrib.auth.models import User[m
+[32m+[m[32mfrom .forms import ([m
+[32m+[m[32m    UserLoginForm, UserRegisterForm, UserProfileUpdateForm,[m
+[32m+[m[32m    UserPasswordChangeForm, CustomPasswordResetForm, CustomSetPasswordForm[m
+[32m+[m[32m)[m
+[32m+[m[32mfrom .models import UserProfile[m
+ [m
+[31m-class CustomLoginView(LoginView):[m
+[32m+[m[32mclass UserLoginView(LoginView):[m
+     template_name = 'users/login.html'[m
+[31m-    form_class = LoginForm[m
+[31m-    redirect_field_name = 'next'[m
+[32m+[m[32m    form_class = UserLoginForm[m
+[32m+[m[32m    redirect_authenticated_user = True[m
+     [m
+     def get_success_url(self):[m
+         return self.request.GET.get('next', '/')[m
+[36m@@ -16,28 +26,114 @@[m [mclass CustomLoginView(LoginView):[m
+     def form_invalid(self, form):[m
+         messages.error(self.request, 'Неверное имя пользователя или пароль.')[m
+         return super().form_invalid(form)[m
+[32m+[m[41m    [m
+[32m+[m[32m    def form_valid(self, form):[m
+[32m+[m[32m        response = super().form_valid(form)[m
+[32m+[m[32m        # Убеждаемся, что у пользователя есть профиль[m
+[32m+[m[32m        try:[m
+[32m+[m[32m            profile = self.request.user.profile[m
+[32m+[m[32m        except User.profile.RelatedObjectDoesNotExist:[m
+[32m+[m[32m            # Если профиля нет, создаем его[m
+[32m+[m[32m            UserProfile.objects.get_or_create(user=self.request.user)[m
+[32m+[m[41m        [m
+[32m+[m[32m        messages.success(self.request, 'Вы успешно вошли в систему!')[m
+[32m+[m[32m        return response[m
+ [m
+[31m-class CustomLogoutView(LogoutView):[m
+[32m+[m[32mclass UserLogoutView(LogoutView):[m
+     next_page = '/'[m
+[31m-    http_method_names = ['get', 'post']  # Разрешаем GET и POST запросы[m
+     [m
+     def dispatch(self, request, *args, **kwargs):[m
+[32m+[m[32m        if request.method == 'GET':[m
+[32m+[m[32m            # Для GET-запросов перенаправляем на главную страницу[m
+[32m+[m[32m            return redirect(self.next_page)[m
+[32m+[m[32m        # Для POST-запросов выполняем выход[m
+         messages.success(request, 'Вы успешно вышли из системы.')[m
+         return super().dispatch(request, *args, **kwargs)[m
+[31m-    [m
+[31m-    def get(self, request, *args, **kwargs):[m
+[31m-        # Принудительно выходим и перенаправляем[m
+[31m-        from django.contrib.auth import logout[m
+[31m-        logout(request)[m
+[31m-        return redirect(self.next_page)[m
+ [m
+[31m-class RegisterView(CreateView):[m
+[32m+[m[32mclass UserRegisterView(CreateView):[m
+     template_name = 'users/register.html'[m
+[31m-    form_class = RegisterForm[m
+[32m+[m[32m    form_class = UserRegisterForm[m
+     success_url = reverse_lazy('users:login')[m
+     [m
+[32m+[m[32m    def dispatch(self, request, *args, **kwargs):[m
+[32m+[m[32m        if request.user.is_authenticated:[m
+[32m+[m[32m            return redirect('/')[m
+[32m+[m[32m        return super().dispatch(request, *args, **kwargs)[m
+[32m+[m[41m    [m
+     def form_valid(self, form):[m
+         response = super().form_valid(form)[m
+         username = form.cleaned_data.get('username')[m
+         messages.success(self.request, f'Аккаунт для {username} был создан! Теперь вы можете войти в систему.')[m
+[31m-        return response[m
+\ No newline at end of file[m
+[32m+[m[32m        return response[m
+[32m+[m
+[32m+[m[32mclass UserProfileDetailView(LoginRequiredMixin, DetailView):[m
+[32m+[m[32m    model = UserProfile[m
+[32m+[m[32m    template_name = 'users/profile_detail.html'[m
+[32m+[m[32m    context_object_name = 'profile'[m
+[32m+[m[41m    [m
+[32m+[m[32m    def get_object(self):[m
+[32m+[m[32m        # Получаем или создаем профиль пользователя[m
+[32m+[m[32m        profile, created = UserProfile.objects.get_or_create(user=self.request.user)[m
+[32m+[m[32m        return profile[m
+[32m+[m[41m    [m
+[32m+[m[32m    def get_context_data(self, **kwargs):[m
+[32m+[m[32m        context = super().get_context_data(**kwargs)[m
+[32m+[m[32m        context['user'] = self.request.user[m
+[32m+[m[32m        return context[m
+[32m+[m
+[32m+[m[32mclass UserProfileUpdateView(LoginRequiredMixin, UpdateView):[m
+[32m+[m[32m    model = UserProfile[m
+[32m+[m[32m    template_name = 'users/profile_update_form.html'[m
+[32m+[m[32m    form_class = UserProfileUpdateForm[m
+[32m+[m[41m    [m
+[32m+[m[32m    def get_object(self):[m
+[32m+[m[32m        # Получаем или создаем профиль пользователя[m
+[32m+[m[32m        profile, created = UserProfile.objects.get_or_create(user=self.request.user)[m
+[32m+[m[32m        return profile[m
+[32m+[m[41m    [m
+[32m+[m[32m    def get_success_url(self):[m
+[32m+[m[32m        return reverse_lazy('users:profile_detail')[m
+[32m+[m[41m    [m
+[32m+[m[32m    def form_valid(self, form):[m
+[32m+[m[32m        messages.success(self.request, 'Профиль успешно обновлен!')[m
+[32m+[m[32m        return super().form_valid(form)[m
+[32m+[m
+[32m+[m[32mclass UserPasswordChangeView(LoginRequiredMixin, PasswordChangeView):[m
+[32m+[m[32m    template_name = 'users/password_change_form.html'[m
+[32m+[m[32m    form_class = UserPasswordChangeForm[m
+[32m+[m[41m    [m
+[32m+[m[32m    def get_success_url(self):[m
+[32m+[m[32m        return reverse_lazy('users:profile_detail')[m
+[32m+[m[41m    [m
+[32m+[m[32m    def form_valid(self, form):[m
+[32m+[m[32m        messages.success(self.request, 'Пароль успешно изменен!')[m
+[32m+[m[32m        return super().form_valid(form)[m
+[32m+[m
+[32m+[m[32mclass CustomPasswordResetView(PasswordResetView):[m
+[32m+[m[32m    template_name = 'users/password_reset_form.html'[m
+[32m+[m[32m    email_template_name = 'users/password_reset_email.html'[m
+[32m+[m[32m    form_class = CustomPasswordResetForm[m
+[32m+[m[41m    [m
+[32m+[m[32m    def get_success_url(self):[m
+[32m+[m[32m        return reverse_lazy('users:password_reset_done')[m
+[32m+[m[41m    [m
+[32m+[m[32m    def form_valid(self, form):[m
+[32m+[m[32m        messages.success(self.request, 'Инструкции по восстановлению пароля отправлены на ваш email.')[m
+[32m+[m[32m        return super().form_valid(form)[m
+[32m+[m
+[32m+[m[32mclass CustomPasswordResetDoneView(PasswordResetDoneView):[m
+[32m+[m[32m    template_name = 'users/password_reset_done.html'[m
+[32m+[m
+[32m+[m[32mclass CustomPasswordResetConfirmView(PasswordResetConfirmView):[m
+[32m+[m[32m    template_name = 'users/password_reset_confirm.html'[m
+[32m+[m[32m    form_class = CustomSetPasswordForm[m
+[32m+[m[41m    [m
+[32m+[m[32m    def get_success_url(self):[m
+[32m+[m[32m        return reverse_lazy('users:password_reset_complete')[m
+[32m+[m[41m    [m
+[32m+[m[32m    def form_valid(self, form):[m
+[32m+[m[32m        messages.success(self.request, 'Пароль успешно изменен! Теперь вы можете войти с новым паролем.')[m
+[32m+[m[32m        return super().form_valid(form)[m
+[32m+[m
+[32m+[m[32mclass CustomPasswordResetCompleteView(PasswordResetCompleteView):[m
+[32m+[m[32m    template_name = 'users/password_reset_complete.html'[m
+\ No newline at end of file[m

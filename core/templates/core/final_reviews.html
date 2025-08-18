@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}Отзывы наших клиентов - Барбершоп{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Отзывы наших клиентов</h1>
+    
+    <div class="stats">
+        <h3>📊 Статистика</h3>
+        <p><strong>Всего отзывов:</strong> {{ reviews|length }}</p>
+    </div>
+    
+    {% if reviews %}
+        <div style="margin: 20px 0;">
+            <h3>💬 Все отзывы ({{ reviews|length }})</h3>
+        </div>
+        
+        {% for review in reviews %}
+            <div class="review">
+                <h4>{{ review.client_name|default:"Анонимный клиент" }}</h4>
+                <p>{{ review.text }}</p>
+                <div class="review-meta">
+                    {% if review.master %}
+                        <strong>Мастер:</strong> {{ review.master.name }}
+                    {% endif %}
+                    {% if review.created_at %}
+                        <br><strong>Дата:</strong> {{ review.created_at|date:"d.m.Y H:i" }}
+                    {% elif review.date_created %}
+                        <br><strong>Дата:</strong> {{ review.date_created|date:"d.m.Y H:i" }}
+                    {% else %}
+                        <br><strong>Дата:</strong> Не указана
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="review" style="text-align: center; color: #666;">
+            <h4>Отзывы не найдены</h4>
+            <p>Пока нет отзывов. Будьте первым!</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

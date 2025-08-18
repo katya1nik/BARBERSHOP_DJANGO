@@ -1,0 +1,19 @@
+[Unit]
+Description=Barbershop Django Application
+After=network.target
+
+[Service]
+Type=notify
+User=www-data
+Group=www-data
+RuntimeDirectory=barbershop
+WorkingDirectory=/path/to/your/project
+Environment="PATH=/path/to/your/project/.venv/bin"
+ExecStart=/path/to/your/project/.venv/bin/gunicorn --config deploy/gunicorn.conf.py barbershop.wsgi:application
+ExecReload=/bin/kill -s HUP $MAINPID
+KillMode=mixed
+TimeoutStopSec=5
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

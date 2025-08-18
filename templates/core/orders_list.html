@@ -7,55 +7,82 @@
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <h1 class="mb-4">Список заявок</h1>
+            <div class="text-center mb-5">
+                <h1 class="mb-4">📋 Список заявок</h1>
+                {% if user.is_superuser %}
+                    <p class="lead">Управление всеми записями клиентов (режим администратора)</p>
+                    <div class="mt-3">
+                        <span class="badge bg-info fs-6 mb-2">👥 Просмотр всех заявок</span>
+                        <br>
+                        <a href="{% url 'core:landing' %}" class="btn btn-primary">🏠 На главную</a>
+                        <a href="{% url 'core:services' %}" class="btn btn-success">✂️ Услуги</a>
+                        <a href="{% url 'core:masters' %}" class="btn btn-warning">👨‍💼 Мастера</a>
+                        <a href="{% url 'core:reviews' %}" class="btn btn-info">⭐ Отзывы</a>
+                    </div>
+                {% else %}
+                    <p class="lead">Ваши записи</p>
+                    <div class="mt-3">
+                        <a href="{% url 'core:landing' %}" class="btn btn-primary">🏠 На главную</a>
+                    </div>
+                {% endif %}
+            </div>
 
             {% if orders %}
-                <div class="orders-list">
+                <div class="row">
                     {% for order in orders %}
-                        <div class="order-card">
-                            <div class="order-header">
-                                <h3>Заявка #{{ order.id }}</h3>
-                                <span class="status status-{{ order.status }}">
-                                    {% if order.status == 'not_approved' %}
-                                        Не одобрен
-                                    {% elif order.status == 'approved' %}
-                                        Одобрен
-                                    {% elif order.status == 'completed' %}
-                                        Выполнен
-                                    {% elif order.status == 'cancelled' %}
-                                        Отменен
-                                    {% else %}
-                                        {{ order.status }}
-                                    {% endif %}
-                                </span>
-                            </div>
-                            <div class="order-info">
-                                <p><strong>Клиент:</strong> {{ order.client_name }}</p>
-                                <p><strong>Телефон:</strong> {{ order.phone }}</p>
-                                <p><strong>Дата:</strong> {{ order.date }}</p>
-                                <p><strong>Время:</strong> {{ order.time }}</p>
-                                <p><strong>Услуга:</strong> {{ order.service }}</p>
-                                {% if order.comment %}
-                                    <p><strong>Комментарий:</strong> {{ order.comment }}</p>
-                                {% endif %}
-                                <p><strong>Статус:</strong> {{ order.status }}</p>
-                                <p><strong>Создано:</strong> {{ order.date_created|date:"d.m.Y H:i" }}</p>
-                            </div>
-                            <div class="order-actions">
-                                <a href="{% url 'core:order_detail' order.id %}" class="btn btn-primary">Подробнее</a>
+                        <div class="col-lg-6 mb-4">
+                            <div class="card order-card">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0">Заказ #{{ order.id }}</h5>
+                                    <span class="status-badge status-{{ order.status }}">
+                                        {{ order.get_status_display }}
+                                    </span>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p><strong>👤 Клиент:</strong> {{ order.client_name }}</p>
+                                            <p><strong>📱 Телефон:</strong> {{ order.phone }}</p>
+                                            <p><strong>👨‍💼 Мастер:</strong> {% if order.master %}{{ order.master.name }}{% else %}Не выбран{% endif %}</p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p><strong>💰 Услуги:</strong> {% if order.services.all %}{{ order.services.count }} шт.{% else %}0 шт.{% endif %}</p>
+                                            <p><strong>📝 ID:</strong> {{ order.id }}</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mt-3">
+                                        <h6>✂️ Услуги:</h6>
+                                        <div class="services-list">
+                                            {% if order.services.all %}
+                                                {% for service in order.services.all %}
+                                                    <span class="badge bg-secondary me-1">{{ service.name }}</span>
+                                                {% endfor %}
+                                            {% else %}
+                                                <span class="text-muted">Услуги не выбраны</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <a href="{% url 'core:order_detail' order.id %}" class="btn btn-primary btn-sm">
+                                        👁️ Подробнее
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     {% endfor %}
                 </div>
             {% else %}
-                <div class="no-orders">
-                    <p>Заявки не найдены.</p>
+                <div class="col-12">
+                    <div class="text-center">
+                        <div style="font-size: 4rem; opacity: 0.3;">📋</div>
+                        <h3>Заказы не найдены</h3>
+                        <p class="text-muted">Пока что записей нет</p>
+                        <a href="{% url 'core:booking' %}" class="btn btn-warning">📅 Создать запись</a>
+                    </div>
                 </div>
             {% endif %}
-
-            <div class="mt-4">
-                <a href="{% url 'core:landing' %}" class="btn btn-secondary">Вернуться на главную</a>
-            </div>
         </div>
     </div>
 </div>

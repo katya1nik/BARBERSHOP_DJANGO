@@ -1,4 +1,4 @@
-/* Общие стили для всего проекта */
+﻿/* Общие стили для всего проекта */
 * {
     margin: 0;
     padding: 0;
@@ -33,7 +33,7 @@ header h1 {
 }
 
 nav {
-    text-align: center;
+    text-align:center;
 }
 
 /* Кнопки */
@@ -47,6 +47,9 @@ nav {
     border: none;
     cursor: pointer;
     font-size: 16px;
+}
+
+.btn{
     background-color: #3498db;
     color: white;
 }
@@ -54,8 +57,6 @@ nav {
 .btn:hover {
     background-color: #2980b9;
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    text-decoration: none;
 }
 
 .btn-primary {
@@ -85,7 +86,7 @@ main {
 .hero-section h2 {
     font-size: 2.5rem;
     margin-bottom: 1rem;
-    color: #09386a;
+    color:#09386a;
 }
 
 .services-section, .masters-section, .booking-section {
@@ -104,7 +105,7 @@ main {
 }
 
 .service-card, .master-card {
-    background: #ecf0f1;
+    background: #ecf0f1 ;
     padding: 1.5rem;
     border-radius: 8px;
     text-align: center;
@@ -136,32 +137,8 @@ main {
     border-color: #3498db;
 }
 
-/* Стили для мастеров */
-.master-photo {
-    width: 120px;
-    height: 120px;
-    margin: 0 auto 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #3498db;
-    border-radius: 50%;
-    overflow: hidden;
-}
-
-.master-photo img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.master-photo i {
-    font-size: 3rem;
-    color: white;
-}
-
-/* Стили для заказов */
-.orders-list {
+/* Заявки на бронирование */
+.orders-list{
     display: grid;
     gap: 1rem;
 }
@@ -188,7 +165,7 @@ main {
     padding-bottom: 0.5rem;
 }
 
-.status {
+.status{
     padding: 5px 15px;
     border-radius: 20px;
     font-weight: bold;
@@ -201,19 +178,41 @@ main {
     color: white;
 }
 
-.status-подтверждённая {
+.status-подтверждена {
     background-color: #27ae60;
     color: white;
 }
 
-.status-выполненная {
+.status-выполнена {
     background-color: #95a5a6;
     color: white;
 }
 
+/* Детали заявки */
+.order-detail {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.order-info-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.info-card{
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border-left: 4px solid #3498db;
+}
+
 .services-list {
     list-style: none;
-    padding-left: 0;
+    padding-left: 0;  
 }
 
 .services-list li {
@@ -222,36 +221,6 @@ main {
     margin: 5px 0;
     border-radius: 5px;
     border-left: 3px solid #2196f3;
-}
-
-.no-orders {
-    text-align: center;
-    background: white;
-    padding: 3rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-}
-
-/* Стили для детальной страницы заявки */
-.order-detail {
-    background: white;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-}
-
-.order-info-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
-    margin: 2rem 0;
-}
-
-.info-card {
-    background: #f8f9fa;
-    padding: 1.5rem;
-    border-radius: 8px;
-    border-left: 4px solid #3498db;
 }
 
 /* Страница благодарности */
@@ -277,7 +246,7 @@ main {
     color: #27ae60;
 }
 
-.next-steps, .contact-info {
+.next-steps,  .contact-info {
     margin: 2rem 0;
     text-align: left;
 }
@@ -297,7 +266,7 @@ main {
 }
 
 /* Сообщения об ошибках */
-.error-message {
+.error-message, .no-orders {
     text-align: center;
     background: white;
     padding: 3rem;
@@ -316,15 +285,15 @@ main {
     .hero-section h2 {
         font-size: 1.8rem;
     }
-    .booking-form {
+    .booking-form{
         grid-template-columns: 1fr;
     }
-    .order-header {
+    .order-header{
         flex-direction: column;
         align-items: flex-start;
-        gap: 10px;
+        gap: 10px
     }
-    .order-info-grid {
+    .order-info-grid{
         grid-template-columns: 1fr;
     }
 }

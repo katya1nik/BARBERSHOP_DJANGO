@@ -1,51 +1,131 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ master.name }} - Барбершоп</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        .master-info { border: 1px solid #ddd; padding: 20px; border-radius: 5px; margin-bottom: 20px; }
-        .review { border: 1px solid #eee; padding: 10px; margin: 10px 0; border-radius: 3px; }
-        .rating { color: gold; }
-    </style>
-</head>
-<body>
-    <div class="master-info">
-        <h1>{{ master.name }}</h1>
-        <p><strong>Телефон:</strong> {{ master.phone }}</p>
-        <p><strong>Адрес:</strong> {{ master.address }}</p>
-        <p><strong>Опыт работы:</strong> {{ master.experience }} лет</p>
+{% extends 'base.html' %}
+
+{% block title %}{{ master.name }} - Барбершоп{% endblock %}
+
+{% block content %}
+<div class="section">
+    <div class="row">
+        <div class="col-md-8">
+            <h1>{{ master.name }}</h1>
+            <div class="master-info">
+                {% if master.photo %}
+                    <img src="{{ master.photo.url }}" alt="{{ master.name }}" class="img-fluid rounded mb-3" style="max-width: 300px;">
+                {% endif %}
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>Телефон:</strong> {{ master.phone|default:"Не указан" }}</p>
+                        <p><strong>Адрес:</strong> {{ master.address|default:"Не указан" }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Опыт работы:</strong> {{ master.experience|default:"Не указан" }} лет</p>
+                        {% if master.specialization %}
+                        <p><strong>Специализация:</strong> {{ master.specialization }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <h3>Услуги мастера:</h3>
+                <div class="row">
+                    {% for service in master.services.all %}
+                    <div class="col-md-6 mb-2">
+                        <div class="service-info">
+                            <div class="info-item">
+                                <div class="info-label">Услуга</div>
+                                <div class="info-value">{{ service.name }}</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Стоимость</div>
+                                <div class="info-value">{{ service.price }} ₽</div>
+                            </div>
+                            {% if service.duration %}
+                            <div class="info-item">
+                                <div class="info-label">Длительность</div>
+                                <div class="info-value">{{ service.duration }} мин.</div>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="col-12">
+                        <p>Услуги не указаны</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
         
-        <h3>Услуги мастера:</h3>
-        <ul>
-            {% for service in master.services.all %}
-                <li>{{ service.name }} - {{ service.price }} руб.</li>
-            {% empty %}
-                <li>Услуги не указаны</li>
-            {% endfor %}
-        </ul>
+        <div class="col-md-4">
+            <div class="master-details">
+                <h3>Записаться к мастеру</h3>
+                <form method="post" action="{% url 'core:booking' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="master" value="{{ master.id }}">
+                    
+                    <div class="form-group">
+                        <label for="client_name">Ваше имя *</label>
+                        <input type="text" id="client_name" name="client_name" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Телефон *</label>
+                        <input type="tel" id="phone" name="phone" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="appointment_date">Дата и время *</label>
+                        <input type="datetime-local" id="appointment_date" name="appointment_date" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Выберите услуги</label>
+                        <div class="service-checkboxes">
+                            {% for service in master.services.all %}
+                            <div class="service-checkbox-item">
+                                <input type="checkbox" id="service_{{ service.id }}" name="services" value="{{ service.id }}">
+                                <label for="service_{{ service.id }}">{{ service.name }}</label>
+                                <span class="service-price">{{ service.price }} ₽</span>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary btn-lg">Записаться</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
     
-    <h2>Отзывы о мастере</h2>
-    {% for review in reviews %}
+    <div class="section">
+        <h2>Отзывы о мастере</h2>
+        {% for review in reviews %}
         <div class="review">
-            <h4>{{ review.client_name }}</h4>
-            <div class="rating">
-                {% for i in "12345" %}
-                    {% if forloop.counter <= review.rating %}⭐{% else %}☆{% endif %}
-                {% endfor %}
-                ({{ review.rating }}/5)
+            <div class="row">
+                <div class="col-md-8">
+                    <h4>{{ review.client_name }}</h4>
+                    <p>{{ review.text }}</p>
+                </div>
+                <div class="col-md-4 text-end">
+                    <div class="rating">
+                        {% for i in "12345" %}
+                            {% if forloop.counter <= review.rating %}⭐{% else %}☆{% endif %}
+                        {% endfor %}
+                        <strong>({{ review.rating }}/5)</strong>
+                    </div>
+                    <small class="text-muted">{{ review.date_created|date:"d.m.Y H:i" }}</small>
+                </div>
             </div>
-            <p>{{ review.text }}</p>
-            <small>{{ review.date_created|date:"d.m.Y H:i" }}</small>
         </div>
-    {% empty %}
+        {% empty %}
         <p>Отзывов о данном мастере пока нет.</p>
-    {% endfor %}
+        {% endfor %}
+    </div>
     
-    <p><a href="{% url 'core:masters' %}">← К списку мастеров</a></p>
-    <p><a href="/">← На главную</a></p>
-</body>
-</html>
+    <div class="text-center mt-4">
+        <a href="{% url 'core:masters' %}" class="btn btn-secondary">← К списку мастеров</a>
+        <a href="{% url 'core:landing' %}" class="btn btn-primary">← На главную</a>
+    </div>
+</div>
+{% endblock %}

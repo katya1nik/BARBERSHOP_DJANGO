@@ -1,67 +1,28 @@
-{% extends 'base.html' %}
-{% load static %}
-
-{% block title %}Отзывы - Барбершоп{% endblock %}
-
-{% block content %}
-<div class="container">
-    <h1>Отзывы наших клиентов</h1>
-    
-    {% if reviews %}
-    <div class="section">
-        <div class="row">
-            {% for review in reviews %}
-            <div class="col-md-6 mb-4">
-                <div class="review">
-                    <div class="d-flex justify-content-between align-items-start mb-2">
-                        <h4>{{ review.client_name }}</h4>
-                        <div class="rating">
-                            {% for i in "12345" %}
-                                {% if forloop.counter <= review.rating %}
-                                    ⭐
-                                {% else %}
-                                    ☆
-                                {% endif %}
-                            {% endfor %}
-                            <span class="text-muted">({{ review.rating }}/5)</span>
-                        </div>
-                    </div>
-                    
-                    <p class="mb-2">{{ review.text }}</p>
-                    
-                    <div class="d-flex justify-content-between align-items-center">
-                        <small class="text-muted">
-                            <strong>Мастер:</strong> {{ review.master.name }}
-                        </small>
-                        <small class="text-muted">
-                            {{ review.created_at|date:"d.m.Y" }}
-                        </small>
-                    </div>
-                    
-                    {% if review.photo %}
-                    <div class="mt-2">
-                        <img src="{{ review.photo.url }}" alt="Фото" class="img-thumbnail" style="max-width: 200px;">
-                    </div>
-                    {% endif %}
-                </div>
-            </div>
-            {% endfor %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Тест восстановленного шаблона</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f0f0f0; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 20px; border-radius: 10px; }
+        h1 { color: #333; text-align: center; }
+        .test { background: #e8f4fd; padding: 15px; border-radius: 8px; margin: 20px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Тест восстановленного шаблона</h1>
+        <div class="test">
+            <p><strong>Тест:</strong> Восстановленный шаблон reviews.html работает!</p>
+            <p>Если вы видите этот текст, значит Django может загрузить восстановленный шаблон.</p>
+            <p>Проблема была в другом месте.</p>
+        </div>
+        
+        <!-- Тестовые данные -->
+        <div style="background: #fff3cd; padding: 20px; border-radius: 10px; margin: 20px 0; border: 1px solid #ffeaa7;">
+            <h2>Тестовые данные</h2>
+            <p>Отзывов в базе: {{ reviews|length|default:"0" }}</p>
         </div>
     </div>
-    {% else %}
-    <div class="section">
-        <div class="alert alert-info text-center">
-            <h3>Отзывы не найдены</h3>
-            <p>Станьте первым, кто оставит отзыв!</p>
-            <p><strong>Отладочная информация:</strong></p>
-            <p>Всего отзывов в базе: {{ reviews|length }}</p>
-        </div>
-    </div>
-    {% endif %}
-    
-    <div class="text-center mt-4">
-        <a href="{% url 'core:booking' %}" class="btn btn-warning btn-lg">Записаться и оставить отзыв</a>
-        <a href="{% url 'core:masters' %}" class="btn btn-primary btn-lg">Наши мастера</a>
-    </div>
-</div>
-{% endblock %}
+</body>
+</html>

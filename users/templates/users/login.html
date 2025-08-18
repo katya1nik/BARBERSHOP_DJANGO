@@ -9,7 +9,13 @@
             <div class="card">
                 <div class="card-header">
                     <h1 class="card-title mb-0">Вход в систему</h1>
+                    <div class="text-end">
+                        <a href="{% url 'users:password_reset' %}" class="text-decoration-none">
+                            <small><i class="bi bi-question-circle"></i> Забыли пароль?</small>
+                        </a>
+                    </div>
                 </div>
+
                 <div class="card-body">
                     <form method="post" class="needs-validation" novalidate>
                         {% csrf_token %}
@@ -57,6 +63,11 @@
                         
                         <div class="text-center mt-3">
                             <p class="mb-0">Нет аккаунта? <a href="{% url 'users:register' %}">Зарегистрироваться</a></p>
+                            <p class="mb-0 mt-2">
+                                <a href="{% url 'users:password_reset' %}" class="btn btn-outline-secondary btn-sm">
+                                    <i class="bi bi-question-circle"></i> Забыли пароль?
+                                </a>
+                            </p>
                         </div>
                     </form>
                 </div>

@@ -21,6 +21,21 @@
                             <strong>🎯 Специализация:</strong> {{ master.specialization }}
                         </small>
                     </div>
+                    
+                    <!-- Услуги мастера -->
+                    {% if master.services.all %}
+                    <div class="mb-3">
+                        <strong>🔧 Услуги:</strong>
+                        <div class="mt-2">
+                            {% for service in master.services.all|slice:":3" %}
+                            <span class="badge bg-primary me-1 mb-1">{{ service.name }}</span>
+                            {% endfor %}
+                            {% if master.services.count > 3 %}
+                            <span class="badge bg-secondary">+{{ master.services.count|add:"-3" }} еще</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
                 </div>
                 <div class="card-footer bg-transparent">
                     <div class="d-flex gap-2">

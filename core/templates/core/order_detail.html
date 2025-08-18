@@ -1,56 +1,72 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Заказ #{{ order.id }} - Барбершоп</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        .order-detail { border: 1px solid #ddd; padding: 20px; border-radius: 5px; max-width: 600px; }
-        .status { padding: 5px 10px; border-radius: 3px; color: white; }
-        .status-pending { background: #ffc107; }
-        .status-confirmed { background: #28a745; }
-        .status-completed { background: #007bff; }
-        .status-cancelled { background: #dc3545; }
-        .services { margin: 15px 0; }
-        .service-item { padding: 8px; background: #f8f9fa; margin: 5px 0; border-radius: 3px; }
-    </style>
-</head>
-<body>
-    <div class="order-detail">
-        <h1>Заказ #{{ order.id }}</h1>
-        
-        <p><strong>Дата создания:</strong> {{ order.date_created|date:"d.m.Y H:i" }}</p>
-        <p><strong>Клиент:</strong> {{ order.client_name }}</p>
-        <p><strong>Телефон:</strong> {{ order.client_phone }}</p>
-        <p><strong>Мастер:</strong> {{ order.master.name }}</p>
-        <p><strong>Дата приема:</strong> {{ order.appointment_date|date:"d.m.Y H:i" }}</p>
-        
-        <p><strong>Статус:</strong> 
-            <span class="status status-{{ order.status }}">{{ order.get_status_display }}</span>
-        </p>
-        
-        <div class="services">
-            <h3>Услуги:</h3>
-            {% for service in order.services.all %}
-                <div class="service-item">
-                    <strong>{{ service.name }}</strong><br>
-                    {{ service.description }}<br>
-                    <strong>Цена:</strong> {{ service.price }} руб. | 
-                    <strong>Время:</strong> {{ service.duration }} мин.
+{% extends 'base.html' %}
+
+{% block title %}Заказ #{{ order.id }} - Барбершоп{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header">
+                    <h1 class="card-title mb-0">Заказ #{{ order.id }}</h1>
                 </div>
-            {% endfor %}
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>👤 Клиент:</strong> {{ order.client_name }}</p>
+                            <p><strong>📱 Телефон:</strong> {{ order.phone }}</p>
+                            <p><strong>👨‍💼 Мастер:</strong> {% if order.master %}{{ order.master.name }}{% else %}Не выбран{% endif %}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>📅 Статус:</strong> 
+                                <span class="status-badge status-{{ order.status }}">
+                                    {{ order.get_status_display }}
+                                </span>
+                            </p>
+                            <p><strong>🆔 ID заказа:</strong> {{ order.id }}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <h5>✂️ Услуги:</h5>
+                        <div class="services-list">
+                            {% if order.services.all %}
+                                {% for service in order.services.all %}
+                                    <div class="card mb-2">
+                                        <div class="card-body py-2">
+                                            <div class="row align-items-center">
+                                                <div class="col-md-6">
+                                                    <strong>{{ service.name }}</strong>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <span class="text-primary">{{ service.price }} ₽</span>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <span class="text-muted">{{ service.duration }} мин.</span>
+                                                </div>
+                                            </div>
+                                            {% if service.description %}
+                                                <small class="text-muted">{{ service.description }}</small>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                <p class="text-muted">Услуги не выбраны</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="{% url 'core:orders_list' %}" class="btn btn-secondary">
+                        ← К списку заказов
+                    </a>
+                    <a href="{% url 'core:landing' %}" class="btn btn-primary">
+                        ← На главную
+                    </a>
+                </div>
+            </div>
         </div>
-        
-        <p><strong>Общая стоимость:</strong> {{ order.total_price }} руб.</p>
-        
-        {% if order.comment %}
-            <p><strong>Комментарий клиента:</strong></p>
-            <p style="background: #f8f9fa; padding: 10px; border-radius: 3px;">{{ order.comment }}</p>
-        {% endif %}
     </div>
-    
-    <p><a href="{% url 'core:orders_list' %}">← К списку заказов</a></p>
-    <p><a href="{% url 'core:landing' %}">← На главную</a></p>
-</body>
-</html>
+</div>
+{% endblock %}
